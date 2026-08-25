@@ -1,0 +1,184 @@
+// Prisma is the schema/migration source of truth for the whole stack.
+// The FastAPI backend (backend/) reads/writes the same tables via SQLAlchemy —
+// it does not run its own migrations. IDs are DB-generated UUIDs (not Prisma's
+// cuid()) specifically so rows created directly by the Python service don't
+// need to coordinate ID generation with Prisma.
+
+generator client {
+  provider        = "prisma-client"
+  output          = "../src/generated/prisma"
+  previewFeatures = ["postgresqlExtensions"]
+}
+
+datasource db {
+  provider   = "postgresql"
+  extensions = [pgcrypto, vector]
+}
+
+// --- Auth / users -----------------------------------------------------
+
+model User {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email          String   @unique
+  hashedPassword String?  @map("hashed_password")
+  name           String?
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  patents      Patent[]
+  chatMessages ChatMessage[]
+
+  @@map("users")
+}
+
+// --- Patents ------------------------------------------------------------
+
+enum PatentStatus {
+  uploaded
+  processing
+  analyzed
+  error
+}
+
+model Patent {
+  id               String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId           String       @map("user_id") @db.Uuid
+  title            String
+  originalFilename String       @map("original_filename")
+  r2Key            String       @map("r2_key")
+  status           PatentStatus @default(uploaded)
+  uploadedAt       DateTime     @default(now()) @map("uploaded_at")
+
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  analysis          PatentAnalysis?
+  entities          PatentEntity[]
+  embeddings        PatentEmbedding[]
+  similarityResults SimilarityResult[]
+  chatMessages      ChatMessage[]
+  reports           Report[]
+
+  @@index([userId])
+  @@map("patents")
+}
+
+model PatentAnalysis {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  patentId        String   @unique @map("patent_id") @db.Uuid
+  extractedText   String?  @map("extracted_text")
+  claimsText      String?  @map("claims_text")
+  abstractText    String?  @map("abstract_text")
+  backgroundText  String?  @map("background_text")
+  noveltyScore    Float?   @map("novelty_score")
+  riskScore       Float?   @map("risk_score")
+  complianceScore Float?   @map("compliance_score")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  patent Patent @relation(fields: [patentId], references: [id], onDelete: Cascade)
+
+  @@map("patent_analysis")
+}
+
+enum PatentEntityType {
+  person
+  org
+  date
+  monetary
+}
+
+model PatentEntity {
+  id          String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  patentId    String           @map("patent_id") @db.Uuid
+  entityType  PatentEntityType @map("entity_type")
+  entityValue String           @map("entity_value")
+  spanStart   Int?             @map("span_start")
+  spanEnd     Int?             @map("span_end")
+
+  patent Patent @relation(fields: [patentId], references: [id], onDelete: Cascade)
+
+  @@index([patentId])
+  @@map("patent_entities")
+}
+
+// --- Embeddings / prior art ---------------------------------------------
+
+enum EmbeddingSourceSection {
+  claims
+  abstract
+  full
+}
+
+model PatentEmbedding {
+  id            String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  patentId      String                 @map("patent_id") @db.Uuid
+  // Dimension matches EMBEDDING_DIM in backend/.env — 384 for all-MiniLM-L6-v2.
+  embedding     Unsupported("vector(384)")
+  sourceSection EmbeddingSourceSection @map("source_section")
+
+  patent Patent @relation(fields: [patentId], references: [id], onDelete: Cascade)
+
+  @@index([patentId])
+  @@map("patent_embeddings")
+}
+
+model PriorArtCorpus {
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title    String
+  source   String @default("seed_dataset")
+  fullText String @map("full_text")
+  // Nullable until the seeding script backfills embeddings for the corpus.
+  embedding Unsupported("vector(384)")?
+  metadata  Json   @default("{}")
+
+  similarityResults SimilarityResult[]
+
+  @@map("prior_art_corpus")
+}
+
+model SimilarityResult {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  patentId        String   @map("patent_id") @db.Uuid
+  priorArtId      String   @map("prior_art_id") @db.Uuid
+  similarityScore Float    @map("similarity_score")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  patent   Patent         @relation(fields: [patentId], references: [id], onDelete: Cascade)
+  priorArt PriorArtCorpus @relation(fields: [priorArtId], references: [id], onDelete: Cascade)
+
+  @@index([patentId])
+  @@index([priorArtId])
+  @@map("similarity_results")
+}
+
+// --- Assistant / reports --------------------------------------------------
+
+enum ChatRole {
+  user
+  assistant
+}
+
+model ChatMessage {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  patentId         String   @map("patent_id") @db.Uuid
+  userId           String   @map("user_id") @db.Uuid
+  role             ChatRole
+  content          String
+  citedPriorArtIds Json     @default("[]") @map("cited_prior_art_ids")
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  patent Patent @relation(fields: [patentId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([patentId])
+  @@map("chat_messages")
+}
+
+model Report {
+  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  patentId         String   @map("patent_id") @db.Uuid
+  reportUrl        String?  @map("report_url")
+  sectionsIncluded Json     @default("[]") @map("sections_included")
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  patent Patent @relation(fields: [patentId], references: [id], onDelete: Cascade)
+
+  @@map("reports")
+}

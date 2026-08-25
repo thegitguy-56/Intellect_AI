@@ -5,6 +5,7 @@ out/
 frontend/.env*.local
 next-env.d.ts
 *.tsbuildinfo
+frontend/src/generated/prisma/
 
 # --- Python / FastAPI (backend) ---
 backend/venv/

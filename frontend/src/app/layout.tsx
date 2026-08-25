@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Sora, JetBrains_Mono } from "next/font/google";
+import { Providers } from "@/components/Providers";
 import "./globals.css";
 
 const sora = Sora({
@@ -33,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="min-h-full flex flex-col bg-background text-on-background">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
