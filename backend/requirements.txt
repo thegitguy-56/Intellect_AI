@@ -5,9 +5,8 @@ pydantic==2.9.2
 pydantic-settings==2.6.0
 python-dotenv==1.0.1
 
-# Database
+# Database (raw asyncpg + pgvector codec — Prisma owns migrations/schema)
 asyncpg==0.30.0
-sqlalchemy[asyncio]==2.0.36
 pgvector==0.3.6
 
 # Object storage (Cloudflare R2 is S3-compatible)
@@ -22,7 +21,12 @@ pillow==11.0.0
 
 # NLP
 spacy==3.8.2
-sentence-transformers==3.2.1
+# Pinned model wheel (not on PyPI) so `pip install -r requirements.txt` alone
+# is enough — no separate `python -m spacy download` step needed on Render.
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
+# Embeddings: HashingVectorizer (see app/services/embeddings.py) — no torch,
+# no model download, deliberately lightweight for this capstone project.
+scikit-learn==1.5.2
 
 # LLM
 groq==0.11.0

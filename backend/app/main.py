@@ -1,12 +1,23 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import get_settings
-from app.routers import health
+from app.core.db import close_pool, init_pool
+from app.routers import chat, health, patents, reports, search
 
 settings = get_settings()
 
-app = FastAPI(title="Patent Analysis NLP Service", version="0.1.0")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_pool()
+    yield
+    await close_pool()
+
+
+app = FastAPI(title="Patent Analysis NLP Service", version="0.1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -17,10 +28,7 @@ app.add_middleware(
 )
 
 app.include_router(health.router)
-
-# Routers land here phase by phase:
-# app.include_router(patents.router, prefix="/patents", tags=["patents"])
-# app.include_router(analyze.router, prefix="/analyze", tags=["analyze"])
-# app.include_router(search.router, prefix="/search", tags=["search"])
-# app.include_router(chat.router, prefix="/chat", tags=["chat"])
-# app.include_router(reports.router, prefix="/reports", tags=["reports"])
+app.include_router(patents.router)
+app.include_router(search.router)
+app.include_router(chat.router)
+app.include_router(reports.router)

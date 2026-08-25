@@ -18,10 +18,10 @@ class Settings(BaseSettings):
 
     # Groq LLM
     groq_api_key: str = ""
-    groq_model: str = "llama-3.3-70b-versatile"
+    groq_model: str = "openai/gpt-oss-120b"
 
-    # Embeddings
-    embedding_model_name: str = "all-MiniLM-L6-v2"
+    # Embeddings (HashingVectorizer — see app/services/embeddings.py; no
+    # trained model, so only the output dimension is configurable)
     embedding_dim: int = 384
 
     # spaCy

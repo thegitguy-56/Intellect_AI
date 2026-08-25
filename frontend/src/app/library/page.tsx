@@ -1,25 +1,36 @@
 import { auth } from "@/auth";
-import { SignOutButton } from "@/components/SignOutButton";
+import { prisma } from "@/lib/prisma";
+import { AppShell } from "@/components/AppShell";
+import { PatentLibraryGrid } from "@/components/PatentLibraryGrid";
 
-// Placeholder for the Patent Library screen (Phase 8). For now this just
-// proves the auth + middleware flow end-to-end: only a signed-in session
-// reaches this page.
 export default async function LibraryPage() {
   const session = await auth();
+  const patents = await prisma.patent.findMany({
+    where: { userId: session!.user.id },
+    orderBy: { uploadedAt: "desc" },
+    include: { analysis: { select: { noveltyScore: true, riskScore: true } } },
+  });
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4 bg-background px-6 text-center">
-      <p className="font-mono text-sm uppercase tracking-wide text-outline">
-        Phase 1 — Auth verified
-      </p>
-      <h1 className="text-3xl font-semibold text-on-background">
-        Welcome, {session?.user?.name ?? session?.user?.email}
-      </h1>
-      <p className="max-w-md text-base text-on-surface-variant">
-        The Patent Library screen lands in Phase 8. This route is
-        middleware-protected — only a signed-in session can reach it.
-      </p>
-      <SignOutButton />
-    </main>
+    <AppShell>
+      <div className="mx-auto flex max-w-[1440px] flex-col gap-8 p-margin-desktop">
+        <div>
+          <h1 className="mb-2 text-4xl font-semibold text-on-background">Patent Library</h1>
+          <p className="text-on-surface-variant">
+            Active monitoring dashboard for your uploaded patents.
+          </p>
+        </div>
+
+        <PatentLibraryGrid
+          patents={patents.map((p) => ({
+            id: p.id,
+            title: p.title,
+            status: p.status,
+            uploadedAt: p.uploadedAt.toISOString(),
+            analysis: p.analysis,
+          }))}
+        />
+      </div>
+    </AppShell>
   );
 }

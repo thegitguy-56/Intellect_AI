@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: intellectflow-backend
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_BUCKET_NAME
+        sync: false
+      - key: R2_ENDPOINT_URL
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: openai/gpt-oss-120b
+      - key: EMBEDDING_DIM
+        value: "384"
+      - key: SPACY_MODEL_NAME
+        value: en_core_web_sm
+      - key: INTERNAL_API_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        value: '["https://your-app.vercel.app"]'

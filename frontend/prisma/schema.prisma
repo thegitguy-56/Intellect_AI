@@ -109,7 +109,9 @@ enum EmbeddingSourceSection {
 model PatentEmbedding {
   id            String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   patentId      String                 @map("patent_id") @db.Uuid
-  // Dimension matches EMBEDDING_DIM in backend/.env — 384 for all-MiniLM-L6-v2.
+  // Dimension matches EMBEDDING_DIM in backend/.env (384) — output size of
+  // the HashingVectorizer in backend/app/services/embeddings.py, not a
+  // trained model's native dimension (see docs/ARCHITECTURE.md).
   embedding     Unsupported("vector(384)")
   sourceSection EmbeddingSourceSection @map("source_section")
 
