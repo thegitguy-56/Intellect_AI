@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IntellectFlow - Settings</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Sora & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Sora:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#ffb77d",
+                        "on-background": "#181445",
+                        "on-tertiary-fixed": "#1a1c1b",
+                        "surface-container": "#efebff",
+                        "on-surface-variant": "#464554",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e3dfff",
+                        "surface": "#fcf8ff",
+                        "background": "#fcf8ff",
+                        "secondary-fixed": "#ffdcc3",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3eeff",
+                        "surface-container-high": "#e9e5ff",
+                        "error": "#ba1a1a",
+                        "primary": "#2a14b4",
+                        "on-primary-container": "#c1beff",
+                        "primary-fixed": "#e3dfff",
+                        "surface-dim": "#dad6ff",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c7c4d7",
+                        "surface-tint": "#5148d7",
+                        "outline": "#777586",
+                        "on-secondary-container": "#663500",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary-fixed-variant": "#372abf",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f6f2ff",
+                        "surface-bright": "#fcf8ff",
+                        "on-primary-fixed": "#100069",
+                        "tertiary-fixed-dim": "#c6c7c5",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e3dfff",
+                        "inverse-surface": "#2d2a5b",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#4338ca",
+                        "on-tertiary-fixed-variant": "#454746",
+                        "on-tertiary-container": "#c4c5c3",
+                        "inverse-primary": "#c3c0ff",
+                        "secondary-container": "#fe932c",
+                        "tertiary-container": "#505251",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "on-surface": "#181445",
+                        "tertiary": "#393b3a",
+                        "tertiary-fixed": "#e2e3e1",
+                        "on-secondary-fixed": "#2f1500",
+                        "secondary": "#904d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "hairline": "1px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-main": ["Sora"],
+                        "data-value": ["JetBrains Mono"],
+                        "data-label": ["JetBrains Mono"],
+                        "headline-md-mobile": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "caption": ["Sora"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-main": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "data-value": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "data-label": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md-mobile": ["20px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: transparent;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: theme('colors.primary');
+        }
+        .toggle-checkbox:checked + .toggle-label:after {
+            transform: translateX(100%);
+            border-color: white;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex flex-col font-body-main text-on-background selection:bg-primary-container selection:text-on-primary-container text-body-main">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant">
+<div class="flex items-center gap-gutter">
+<!-- Brand Logo -->
+<span class="font-headline-md text-headline-md font-bold text-primary">IntellectFlow</span>
+</div>
+<!-- Search Bar (on_left in JSON, but visually placed center-left in header context) -->
+<div class="flex-1 max-w-md mx-gutter hidden md:flex items-center">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline-variant">search</span>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-DEFAULT py-2 pl-10 pr-4 text-body-main font-body-main text-on-surface focus:border-primary focus:ring-0 transition-colors" placeholder="Search patents, citations..." type="text"/>
+</div>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-base">
+<button class="p-2 rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high/50 transition-colors">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<button class="p-2 rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high/50 transition-colors">
+<span class="material-symbols-outlined">export_notes</span>
+</button>
+<button class="p-2 rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-high/50 transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 pt-16">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col gap-base p-6 w-80 border-r border-outline-variant fixed left-0 top-16 h-[calc(100vh-4rem)] bg-surface">
+<!-- Header -->
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Lab Instance</h2>
+<p class="font-data-label text-data-label text-on-surface-variant">v4.2.0-Alpha</p>
+<button class="mt-6 w-full py-2 px-4 bg-primary text-on-primary rounded-DEFAULT font-data-label text-data-label hover:bg-primary-container hover:text-on-primary-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    New Analysis
+                </button>
+</div>
+<!-- Navigation Links -->
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all group active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span class="font-data-label text-data-label">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all group active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">account_tree</span>
+<span class="font-data-label text-data-label">Prior-Art Map</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all group active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">hub</span>
+<span class="font-data-label text-data-label">Citation Network</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all group active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">menu_book</span>
+<span class="font-data-label text-data-label">Lab Notebook</span>
+</a>
+<!-- Active Item -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-primary font-bold bg-primary-container/10 border-r-4 border-primary transition-all active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-data-label text-data-label">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-[320px] p-margin-desktop bg-background flex flex-col gap-gutter">
+<header class="mb-4">
+<h1 class="font-display-lg text-display-lg text-on-background tracking-tight">Settings</h1>
+<p class="font-body-main text-body-main text-on-surface-variant mt-2">Manage your account preferences, lab notifications, and API credentials.</p>
+</header>
+<div class="max-w-4xl flex flex-col gap-gutter">
+<!-- Account Profile Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-8">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2 border-b border-outline-variant pb-4">
+<span class="material-symbols-outlined text-primary">person</span>
+                        Account Profile
+                    </h3>
+<div class="flex flex-col md:flex-row gap-8 items-start">
+<!-- Avatar -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-24 h-24 rounded-full overflow-hidden border border-outline-variant bg-surface-container-low flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A striking digital portrait avatar featuring abstract glowing geometric shapes in high-key soft white lighting. Pristine whites and deep blacks with a subtle vibrant red accent. Modern light-mode lab aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAENEfW2vC6nfpFJpNvem-qgKOJV5QNzR2BvRI35QOEixcAbKNyHlXL2gWBl4cDj8_ji_O7E2W0ZHVBNHrKn06OzYUEooy0PW04A9qmOLLD4pw6NkV9z-LzMzioBWGtZyZJZq-H7qW39Zz4C-9RaF6IW6DouaosenECS7ec51aiWh7aFv-tUy88MN-utV1kkR5ZnNSWikqp2p0fZzA6PHXlgZLEP_qscXqBGKCMWQ2PRBa_nXnyb-BA"/>
+</div>
+<button class="text-primary font-data-label text-data-label hover:underline">Update Image</button>
+</div>
+<!-- Form Fields -->
+<div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+<div class="flex flex-col">
+<label class="font-data-label text-data-label text-on-surface-variant mb-1">Full Name</label>
+<input class="bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary text-body-main font-body-main p-0 py-2" type="text" value="Dr. Aris Vance"/>
+</div>
+<div class="flex flex-col">
+<label class="font-data-label text-data-label text-on-surface-variant mb-1">Organization</label>
+<input class="bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary text-body-main font-body-main p-0 py-2" type="text" value="Nexus Advanced Research"/>
+</div>
+<div class="flex flex-col md:col-span-2">
+<label class="font-data-label text-data-label text-on-surface-variant mb-1">Email Address</label>
+<input class="bg-transparent border-0 border-b border-outline-variant focus:ring-0 focus:border-primary text-body-main font-body-main p-0 py-2 font-data-value" type="email" value="a.vance@nexus-research.io"/>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-end">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-DEFAULT font-data-label text-data-label hover:bg-primary-container transition-colors">Save Changes</button>
+</div>
+</section>
+<!-- Notifications Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-8">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2 border-b border-outline-variant pb-4">
+<span class="material-symbols-outlined text-primary">notifications_active</span>
+                        Notification Preferences
+                    </h3>
+<div class="flex flex-col gap-6">
+<!-- Toggle Row 1 -->
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-body-main text-body-main font-semibold text-on-surface">New Citation Alerts</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Receive alerts when tracked patents receive new citations.</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-primary checked:border-primary transition-all duration-300 z-10 top-0 left-0" id="toggle1" name="toggle1" style="margin: 0; outline: none; box-shadow: none;" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-high cursor-pointer transition-colors duration-300" for="toggle1"></label>
+</div>
+</div>
+<div class="h-px w-full bg-outline-variant/50"></div>
+<!-- Toggle Row 2 -->
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-body-main text-body-main font-semibold text-on-surface">Prior-Art Proximity Warnings</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Notify when lab notebook entries match existing patent semantic vectors.</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-primary checked:border-primary transition-all duration-300 z-10 top-0 left-0" id="toggle2" name="toggle2" style="margin: 0; outline: none; box-shadow: none;" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-high cursor-pointer transition-colors duration-300" for="toggle2"></label>
+</div>
+</div>
+<div class="h-px w-full bg-outline-variant/50"></div>
+<!-- Toggle Row 3 -->
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-body-main text-body-main font-semibold text-on-surface">Weekly Lab Summary</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">An automated export of your weekly notebook analysis sent via email.</p>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-outline-variant transition-all duration-300 z-10 top-0 left-0" id="toggle3" name="toggle3" style="margin: 0; outline: none; box-shadow: none;" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container-high cursor-pointer transition-colors duration-300" for="toggle3"></label>
+</div>
+</div>
+</div>
+</section>
+<!-- API Keys Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-8">
+<div class="flex items-center justify-between mb-6 border-b border-outline-variant pb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">key</span>
+                            API Access Keys
+                        </h3>
+<button class="text-primary font-data-label text-data-label hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">add</span> Generate New Key
+                        </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="py-3 pr-4 font-data-label text-data-label text-on-surface-variant font-medium">Key Name</th>
+<th class="py-3 px-4 font-data-label text-data-label text-on-surface-variant font-medium">Token ID</th>
+<th class="py-3 px-4 font-data-label text-data-label text-on-surface-variant font-medium">Created</th>
+<th class="py-3 pl-4 font-data-label text-data-label text-on-surface-variant font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant/30 hover:bg-surface-container-low transition-colors group">
+<td class="py-4 pr-4 font-body-main text-body-main">Production Inference</td>
+<td class="py-4 px-4 font-data-value text-data-value text-on-surface">pk_live_8f92...a1b2</td>
+<td class="py-4 px-4 font-data-value text-data-value text-on-surface-variant">2024-05-12</td>
+<td class="py-4 pl-4 text-right">
+<button class="text-on-surface-variant hover:text-error transition-colors" title="Revoke Key">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 pr-4 font-body-main text-body-main">Local Dev Sandbox</td>
+<td class="py-4 px-4 font-data-value text-data-value text-on-surface">sk_test_4c21...d9e4</td>
+<td class="py-4 px-4 font-data-value text-data-value text-on-surface-variant">2024-08-01</td>
+<td class="py-4 pl-4 text-right">
+<button class="text-on-surface-variant hover:text-error transition-colors" title="Revoke Key">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="md:ml-[320px] flex justify-between items-center px-margin-desktop py-base w-[calc(100%-320px)] mt-auto bg-surface-container-lowest border-t border-outline-variant">
+<div class="font-caption text-caption text-on-surface-variant">
+            © 2024 IntellectFlow IP Systems. Precision-Lab Analytics.
+        </div>
+<div class="flex gap-4">
+<a class="font-data-label text-data-label text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">Documentation</a>
+<a class="font-data-label text-data-label text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">API Reference</a>
+<a class="font-data-label text-data-label text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">Legal</a>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IntellectFlow - Compliance Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#ffb77d",
+                      "on-background": "#181445",
+                      "on-tertiary-fixed": "#1a1c1b",
+                      "surface-container": "#efebff",
+                      "on-surface-variant": "#464554",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#e3dfff",
+                      "surface": "#fcf8ff",
+                      "background": "#fcf8ff",
+                      "secondary-fixed": "#ffdcc3",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f3eeff",
+                      "surface-container-high": "#e9e5ff",
+                      "error": "#ba1a1a",
+                      "primary": "#2a14b4",
+                      "on-primary-container": "#c1beff",
+                      "primary-fixed": "#e3dfff",
+                      "surface-dim": "#dad6ff",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#c7c4d7",
+                      "surface-tint": "#5148d7",
+                      "outline": "#777586",
+                      "on-secondary-container": "#663500",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "on-primary-fixed-variant": "#372abf",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-low": "#f6f2ff",
+                      "surface-bright": "#fcf8ff",
+                      "on-primary-fixed": "#100069",
+                      "tertiary-fixed-dim": "#c6c7c5",
+                      "error-container": "#ffdad6",
+                      "surface-container-highest": "#e3dfff",
+                      "inverse-surface": "#2d2a5b",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#4338ca",
+                      "on-tertiary-fixed-variant": "#454746",
+                      "on-tertiary-container": "#c4c5c3",
+                      "inverse-primary": "#c3c0ff",
+                      "secondary-container": "#fe932c",
+                      "tertiary-container": "#505251",
+                      "on-secondary-fixed-variant": "#6e3900",
+                      "on-surface": "#181445",
+                      "tertiary": "#393b3a",
+                      "tertiary-fixed": "#e2e3e1",
+                      "on-secondary-fixed": "#2f1500",
+                      "secondary": "#904d00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "base": "8px",
+                      "gutter": "24px",
+                      "hairline": "1px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Sora"],
+                      "body-main": ["Sora"],
+                      "data-value": ["JetBrains Mono"],
+                      "data-label": ["JetBrains Mono"],
+                      "headline-md-mobile": ["Sora"],
+                      "display-lg": ["Sora"],
+                      "caption": ["Sora"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "body-main": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "data-value": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "data-label": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-md-mobile": ["20px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #FAFAF8; /* Level 0 Canvas */
+            color: #181445; /* on-background */
+        }
+        .border-hairline {
+            border-width: 1px;
+            border-color: #E5E5E1;
+        }
+        .border-t-hairline { border-top-width: 1px; border-top-color: #E5E5E1; }
+        .border-b-hairline { border-bottom-width: 1px; border-bottom-color: #E5E5E1; }
+        .border-l-hairline { border-left-width: 1px; border-left-color: #E5E5E1; }
+        .border-r-hairline { border-right-width: 1px; border-right-color: #E5E5E1; }
+        
+        .glass-panel {
+            background-color: rgba(250, 250, 248, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid #ffffff;
+        }
+
+        .node-glow:hover {
+            box-shadow: 0 0 12px rgba(67, 56, 202, 0.15); /* Primary Indigo 15% */
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Expandable Card Transition */
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+        .expandable-content.expanded {
+            max-height: 500px; /* Arbitrary large height for transition */
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="font-body-main text-body-main antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16">
+<div class="flex items-center gap-gutter">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">IntellectFlow</div>
+<!-- Search placeholder (on_left as per JSON) -->
+<div class="hidden md:flex items-center border-b-hairline border-outline focus-within:border-primary transition-colors pb-1 ml-4 w-64">
+<span class="material-symbols-outlined text-outline-variant mr-2 text-[18px]">search</span>
+<input class="bg-transparent border-none outline-none text-data-value font-data-value text-on-surface w-full p-0 focus:ring-0 placeholder:text-outline-variant" placeholder="Search parameters..." type="text"/>
+</div>
+</div>
+<!-- Navigation - Suppressed as this is a "Detail View" (Linear/Transactional/Task-Focused) -->
+<div class="flex items-center gap-base">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors rounded-full scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors rounded-full scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined">export_notes</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors rounded-full scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 mt-16 flex w-full max-w-[1440px] mx-auto">
+<!-- Sub-nav / Breadcrumb -->
+<div class="w-full px-margin-mobile md:px-margin-desktop py-gutter flex items-center justify-between border-b-hairline absolute top-16 left-0 right-0 z-40 bg-background">
+<div class="flex items-center gap-2 font-data-label text-data-label text-on-surface-variant">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                    Analysis Dashboard
+                </a>
+<span>/</span>
+<span class="text-on-surface">Compliance Detail</span>
+</div>
+<div class="font-data-value text-data-value text-on-surface bg-surface-container-low px-2 py-1 rounded border-hairline">
+                ID: CMP-2024-889A
+            </div>
+</div>
+<div class="mt-20 w-full px-margin-mobile md:px-margin-desktop py-gutter grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Left Column: Overview & Chart -->
+<div class="md:col-span-8 flex flex-col gap-gutter">
+<!-- Header -->
+<div>
+<h1 class="font-display-lg text-display-lg text-on-background mb-2">Risk Exposure Breakdown</h1>
+<p class="text-on-surface-variant max-w-2xl">Detailed analysis of compliance factors against current regulatory frameworks. Data updated dynamically based on latest patent filings and internal technical reviews.</p>
+</div>
+<!-- Horizontal Stacked Bar Chart Area -->
+<div class="border-hairline bg-surface p-6 rounded-lg node-glow transition-shadow relative">
+<div class="flex justify-between items-end mb-4 border-b-hairline pb-4">
+<div>
+<div class="font-data-label text-data-label text-on-surface-variant uppercase mb-1">Composite Risk Score</div>
+<div class="font-headline-md text-headline-md text-secondary-container flex items-center gap-2">
+<span class="material-symbols-outlined icon-fill text-secondary-container">warning</span>
+                                High Exposure (74%)
+                            </div>
+</div>
+<div class="font-data-value text-data-value text-outline text-right">
+                            Threshold: 60%<br/>Variance: +14%
+                        </div>
+</div>
+<!-- The Stacked Bar -->
+<div class="w-full h-8 flex rounded overflow-hidden mt-6 mb-2 border-hairline">
+<!-- Structural Risk -->
+<div class="bg-primary h-full cursor-pointer hover:opacity-90 transition-opacity" style="width: 45%;" title="Structural Risk: 45%"></div>
+<!-- Operational Risk -->
+<div class="bg-secondary-container h-full cursor-pointer hover:opacity-90 transition-opacity" style="width: 20%;" title="Operational Risk: 20%"></div>
+<!-- IP Overlap -->
+<div class="bg-surface-tint h-full cursor-pointer hover:opacity-90 transition-opacity" style="width: 15%;" title="IP Overlap: 15%"></div>
+<!-- Residual -->
+<div class="bg-surface-container-high h-full cursor-pointer hover:opacity-90 transition-opacity" style="width: 20%;" title="Residual/Safe: 20%"></div>
+</div>
+<!-- Legend -->
+<div class="flex gap-6 mt-4 font-data-value text-data-value">
+<div class="flex items-center gap-2"><div class="w-3 h-3 bg-primary rounded-sm border-hairline"></div><span class="text-on-surface">Structural (45%)</span></div>
+<div class="flex items-center gap-2"><div class="w-3 h-3 bg-secondary-container rounded-sm border-hairline"></div><span class="text-on-surface">Operational (20%)</span></div>
+<div class="flex items-center gap-2"><div class="w-3 h-3 bg-surface-tint rounded-sm border-hairline"></div><span class="text-on-surface">IP Overlap (15%)</span></div>
+</div>
+</div>
+<!-- Expandable AI Explanation Cards -->
+<div class="flex flex-col gap-4 mt-4">
+<h2 class="font-headline-md text-headline-md text-on-background border-b-hairline pb-2 mb-2">Segment Diagnostics</h2>
+<!-- Card 1 -->
+<div class="border-hairline bg-surface rounded-lg">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleExpand('card1', this)">
+<div class="flex items-center gap-4">
+<div class="w-4 h-4 bg-primary rounded-sm border-hairline"></div>
+<div class="text-left">
+<div class="font-headline-md text-[18px] text-on-surface">Structural Integrity Compliance</div>
+<div class="font-data-label text-data-label text-on-surface-variant">Factor Weight: 45%</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant transition-transform duration-300" id="icon-card1">expand_more</span>
+</button>
+<div class="expandable-content border-t-hairline bg-surface-container-lowest" id="card1">
+<div class="p-4 flex gap-6">
+<div class="flex-1">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-[18px]">psychiatry</span>
+<span class="font-data-label text-data-label text-primary">AI Diagnostic</span>
+</div>
+<p class="text-on-surface-variant mb-4">Analysis indicates significant deviation from ISO-449 structural guidelines in prototype phase B. The material stress models show a 12% higher failure probability under peak load than allowable limits.</p>
+<div class="font-data-value text-data-value text-on-surface grid grid-cols-2 gap-2 max-w-sm">
+<div class="border-b-hairline py-1 text-outline-variant">Ref Node:</div><div class="border-b-hairline py-1">ND-7729-X</div>
+<div class="border-b-hairline py-1 text-outline-variant">Confidence:</div><div class="border-b-hairline py-1">94.2%</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="border-hairline bg-surface rounded-lg">
+<button class="w-full flex items-center justify-between p-4 hover:bg-surface-container-low transition-colors" onclick="toggleExpand('card2', this)">
+<div class="flex items-center gap-4">
+<div class="w-4 h-4 bg-secondary-container rounded-sm border-hairline"></div>
+<div class="text-left">
+<div class="font-headline-md text-[18px] text-on-surface">Operational Tolerance Limits</div>
+<div class="font-data-label text-data-label text-on-surface-variant">Factor Weight: 20%</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant transition-transform duration-300" id="icon-card2">expand_more</span>
+</button>
+<div class="expandable-content border-t-hairline bg-surface-container-lowest" id="card2">
+<div class="p-4">
+<p class="text-on-surface-variant">Thermal dynamic testing falls within acceptable parameters, but sustained operation exceeds recommended lifecycle degradation curves.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Context/Details Sidebar -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<div class="border-hairline bg-surface-container-low p-6 rounded-lg sticky top-32">
+<h3 class="font-headline-md text-headline-md text-on-background mb-4">Context Variables</h3>
+<div class="space-y-4">
+<div>
+<div class="font-data-label text-data-label text-outline-variant mb-1">Target Jurisdiction</div>
+<div class="font-body-main text-on-surface pb-2 border-b-hairline">EU &amp; North America (Dual Filing)</div>
+</div>
+<div>
+<div class="font-data-label text-data-label text-outline-variant mb-1">Assessment Date</div>
+<div class="font-data-value text-data-value text-on-surface pb-2 border-b-hairline">2024-10-24 14:30 UTC</div>
+</div>
+<div>
+<div class="font-data-label text-data-label text-outline-variant mb-1">Analyst Override</div>
+<div class="font-data-value text-data-value text-on-surface pb-2 border-b-hairline flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error inline-block"></span> Not Applied
+                            </div>
+</div>
+</div>
+<div class="mt-8">
+<button class="w-full bg-primary text-on-primary font-data-label text-data-label py-2 px-4 rounded border-hairline hover:bg-primary-container transition-colors flex justify-center items-center gap-2">
+                            Generate Mitigation Report <span class="material-symbols-outlined text-[18px]">summarize</span>
+</button>
+<button class="w-full mt-2 bg-transparent text-primary font-data-label text-data-label py-2 px-4 rounded border-hairline hover:bg-surface-variant transition-colors">
+                            Request Manual Review
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-background border-t border-outline-variant flat no shadows flex justify-between items-center px-margin-desktop py-base w-full mt-auto">
+<div class="font-data-label text-data-label text-on-surface text-primary underline">
+<span class="text-on-surface-variant hover:text-primary transition-opacity no-underline">© 2024 IntellectFlow IP Systems. Precision-Lab Analytics.</span>
+</div>
+<div class="flex gap-4 font-caption text-caption text-primary dark:text-primary-fixed-dim">
+<a class="text-on-surface-variant hover:text-primary transition-opacity" href="#">Documentation</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity" href="#">API Reference</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity" href="#">Legal</a>
+</div>
+</footer>
+<script>
+        function toggleExpand(cardId, btnElement) {
+            const content = document.getElementById(cardId);
+            const icon = document.getElementById('icon-' + cardId);
+            
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('expanded');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+    </script>
+</body></html>

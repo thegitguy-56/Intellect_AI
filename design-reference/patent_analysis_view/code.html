@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IntellectFlow - Patent Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#ffb77d",
+                      "on-background": "#181445",
+                      "on-tertiary-fixed": "#1a1c1b",
+                      "surface-container": "#efebff",
+                      "on-surface-variant": "#464554",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#e3dfff",
+                      "surface": "#fcf8ff",
+                      "background": "#fcf8ff",
+                      "secondary-fixed": "#ffdcc3",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f3eeff",
+                      "surface-container-high": "#e9e5ff",
+                      "error": "#ba1a1a",
+                      "primary": "#2a14b4",
+                      "on-primary-container": "#c1beff",
+                      "primary-fixed": "#e3dfff",
+                      "surface-dim": "#dad6ff",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#c7c4d7",
+                      "surface-tint": "#5148d7",
+                      "outline": "#777586",
+                      "on-secondary-container": "#663500",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "on-primary-fixed-variant": "#372abf",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-low": "#f6f2ff",
+                      "surface-bright": "#fcf8ff",
+                      "on-primary-fixed": "#100069",
+                      "tertiary-fixed-dim": "#c6c7c5",
+                      "error-container": "#ffdad6",
+                      "surface-container-highest": "#e3dfff",
+                      "inverse-surface": "#2d2a5b",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#4338ca",
+                      "on-tertiary-fixed-variant": "#454746",
+                      "on-tertiary-container": "#c4c5c3",
+                      "inverse-primary": "#c3c0ff",
+                      "secondary-container": "#fe932c",
+                      "tertiary-container": "#505251",
+                      "on-secondary-fixed-variant": "#6e3900",
+                      "on-surface": "#181445",
+                      "tertiary": "#393b3a",
+                      "tertiary-fixed": "#e2e3e1",
+                      "on-secondary-fixed": "#2f1500",
+                      "secondary": "#904d00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "base": "8px",
+                      "gutter": "24px",
+                      "hairline": "1px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Sora"],
+                      "body-main": ["Sora"],
+                      "data-value": ["JetBrains Mono"],
+                      "data-label": ["JetBrains Mono"],
+                      "headline-md-mobile": ["Sora"],
+                      "display-lg": ["Sora"],
+                      "caption": ["Sora"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "body-main": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "data-value": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "data-label": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-md-mobile": ["20px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); }
+        .glass-panel {
+            background: rgba(252, 248, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid theme('colors.surface-container-lowest');
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+
+        /* Highlight classes */
+        .hl-person { border-bottom: 2px solid theme('colors.primary'); background-color: theme('colors.primary-fixed'); padding: 0 4px; border-radius: 2px; }
+        .hl-org { border-bottom: 2px solid theme('colors.secondary'); background-color: theme('colors.secondary-fixed'); padding: 0 4px; border-radius: 2px; }
+        .hl-date { border-bottom: 2px solid theme('colors.tertiary'); background-color: theme('colors.tertiary-fixed'); padding: 0 4px; border-radius: 2px; }
+    </style>
+</head>
+<body class="text-on-background font-body-main antialiased selection:bg-primary-container/30">
+<!-- TopAppBar Shared Component -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed tracking-tight">IntellectFlow</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-primary dark:text-primary-fixed-dim">
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined text-[20px]">export_notes</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar Shared Component -->
+<aside class="fixed left-0 top-16 h-screen flex flex-col gap-base p-6 w-80 border-r border-outline-variant bg-surface dark:bg-surface-container-low z-40">
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed font-semibold">Lab Instance</h2>
+<p class="font-data-label text-data-label text-outline mt-1">v4.2.0-Alpha</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98 duration-150 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-data-label text-data-label">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98 duration-150 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">account_tree</span>
+<span class="font-data-label text-data-label">Prior-Art Map</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98 duration-150 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">hub</span>
+<span class="font-data-label text-data-label">Citation Network</span>
+</a>
+<!-- Active -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary dark:text-primary-fixed font-bold bg-primary-container/10 border-r-4 border-primary transition-all active:scale-98 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="font-data-label text-data-label">Lab Notebook</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98 duration-150 group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-primary transition-colors">settings</span>
+<span class="font-data-label text-data-label">Settings</span>
+</a>
+</nav>
+<button class="mt-auto w-full py-3 bg-primary-container text-on-primary font-data-label text-data-label rounded hover:bg-primary transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            New Analysis
+        </button>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-80 pt-16 min-h-screen flex flex-col bg-background">
+<div class="flex-1 p-gutter grid grid-cols-12 gap-gutter max-w-[1440px] mx-auto w-full relative">
+<!-- Background Decoration (Glass-Brutalist Grid Lines) -->
+<div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(to right, theme('colors.outline-variant') 1px, transparent 1px), linear-gradient(to bottom, theme('colors.outline-variant') 1px, transparent 1px); background-size: 40px 40px; opacity: 0.15;"></div>
+<!-- Left Panel: Extracted Document Text -->
+<section class="col-span-8 bg-surface-container-lowest border border-outline-variant rounded p-8 relative z-10">
+<!-- Header -->
+<div class="flex justify-between items-end border-b border-outline-variant pb-4 mb-6">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Analysis in Progress</h1>
+</div>
+<span class="font-data-value text-data-value text-primary px-3 py-1 bg-surface-container rounded border border-surface-variant">US-20230104859-A1</span>
+</div>
+<!-- Document Canvas -->
+<div class="font-body-main text-body-main text-on-surface-variant leading-relaxed space-y-6">
+<p>
+                        A system and method for distributed quantum key distribution across heterogeneous network topologies. 
+                        The present invention, assigned to <span class="hl-org">QuantumNet Industries LLC</span>, relates generally to cryptographic protocols and specifically to dynamic entanglement routing.
+                    </p>
+<p>
+                        As detailed by <span class="hl-person">Dr. Aris Thorne</span> in his foundational paper published on <span class="hl-date">October 14, 2021</span>, traditional repeater networks suffer from decoherence scaling issues. The proposed architecture introduces a novel quantum memory buffer utilizing NV centers in diamond lattices.
+                    </p>
+<p>
+                        In one embodiment, the control plane orchestrates entanglement swapping operations. The central orchestrator, deployed at the <span class="hl-org">National Institute of Standards and Technology (NIST)</span> facility in Boulder, Colorado, continuously monitors the fidelity of established links. If the fidelity drops below the threshold established on <span class="hl-date">March 2, 2022</span>, the link is aggressively pruned.
+                    </p>
+<p>
+                        Furthermore, the entanglement generation rate is significantly improved by multiplexing spectral channels. <span class="hl-person">Elena Rostova</span> previously demonstrated a two-fold increase using similar techniques, but this disclosure integrates it directly with the aforementioned memory buffer structure.
+                    </p>
+</div>
+</section>
+<!-- Right Panel: Live Analysis Sidebar -->
+<aside class="col-span-4 flex flex-col gap-6 z-10">
+<!-- Extraction Status Widget -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-4 animate-fade-up">
+<div class="flex justify-between items-center mb-2">
+<span class="font-data-label text-data-label text-outline">Extraction Engine</span>
+<span class="font-data-value text-data-value text-secondary-container">Running...</span>
+</div>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-2/3 relative">
+<div class="absolute inset-0 bg-white/20 w-full animate-[shimmer_1.5s_infinite] -translate-x-full" style="background-image: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);"></div>
+</div>
+</div>
+</div>
+<!-- Classification Tiles (Bento) -->
+<div class="grid grid-cols-2 gap-4 animate-fade-up delay-100">
+<div class="bg-surface-container border border-outline-variant rounded p-4 flex flex-col gap-2 hover:border-primary transition-colors cursor-default">
+<span class="material-symbols-outlined text-[24px] text-primary">category</span>
+<div>
+<div class="font-data-label text-data-label text-outline text-[11px]">PRIMARY CPC</div>
+<div class="font-data-value text-data-value text-on-surface font-semibold mt-1">H04L 9/0852</div>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant rounded p-4 flex flex-col gap-2 hover:border-primary transition-colors cursor-default">
+<span class="material-symbols-outlined text-[24px] text-secondary">memory</span>
+<div>
+<div class="font-data-label text-data-label text-outline text-[11px]">DOMAIN</div>
+<div class="font-data-value text-data-value text-on-surface font-semibold mt-1">Quantum Crypto</div>
+</div>
+</div>
+</div>
+<!-- Extracted Claims List -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col animate-fade-up delay-200 flex-1">
+<div class="border-b border-outline-variant p-4 flex justify-between items-center">
+<h3 class="font-data-label text-data-label text-on-surface font-bold">Identified Entities</h3>
+<span class="material-symbols-outlined text-[18px] text-outline">filter_list</span>
+</div>
+<div class="p-4 flex flex-col gap-3 overflow-y-auto max-h-[400px]">
+<!-- Entity Item -->
+<div class="flex items-start gap-3 p-3 bg-surface rounded border border-transparent hover:border-outline-variant transition-colors group animate-fade-up delay-300">
+<div class="w-8 h-8 rounded bg-primary-fixed flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<div>
+<div class="font-data-value text-data-value font-semibold text-on-surface">Dr. Aris Thorne</div>
+<div class="font-caption text-caption text-outline mt-0.5">Inventor / Researcher</div>
+</div>
+</div>
+<!-- Entity Item -->
+<div class="flex items-start gap-3 p-3 bg-surface rounded border border-transparent hover:border-outline-variant transition-colors group animate-fade-up delay-400">
+<div class="w-8 h-8 rounded bg-secondary-fixed flex items-center justify-center text-secondary shrink-0">
+<span class="material-symbols-outlined text-[16px]">corporate_fare</span>
+</div>
+<div>
+<div class="font-data-value text-data-value font-semibold text-on-surface">QuantumNet Industries LLC</div>
+<div class="font-caption text-caption text-outline mt-0.5">Assignee</div>
+</div>
+</div>
+<!-- Entity Item -->
+<div class="flex items-start gap-3 p-3 bg-surface rounded border border-transparent hover:border-outline-variant transition-colors group animate-fade-up" style="animation-delay: 500ms;">
+<div class="w-8 h-8 rounded bg-tertiary-fixed flex items-center justify-center text-tertiary shrink-0">
+<span class="material-symbols-outlined text-[16px]">event</span>
+</div>
+<div>
+<div class="font-data-value text-data-value font-semibold text-on-surface">October 14, 2021</div>
+<div class="font-caption text-caption text-outline mt-0.5">Prior Art Reference Date</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<!-- Footer Shared Component -->
+<footer class="flex justify-between items-center px-margin-desktop py-base w-full mt-auto bg-surface-container-lowest dark:bg-background border-t border-outline-variant">
+<span class="font-data-label text-data-label text-on-surface">© 2024 IntellectFlow IP Systems. Precision-Lab Analytics.</span>
+<div class="flex gap-4">
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">Documentation</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">API Reference</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">Legal</a>
+</div>
+</footer>
+</main>
+<style>
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+    </style>
+</body></html>

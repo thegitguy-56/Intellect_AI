@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IntellectFlow - Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Sora:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#ffb77d",
+                        "on-background": "#181445",
+                        "on-tertiary-fixed": "#1a1c1b",
+                        "surface-container": "#efebff",
+                        "on-surface-variant": "#464554",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e3dfff",
+                        "surface": "#fcf8ff",
+                        "background": "#fcf8ff",
+                        "secondary-fixed": "#ffdcc3",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3eeff",
+                        "surface-container-high": "#e9e5ff",
+                        "error": "#ba1a1a",
+                        "primary": "#2a14b4",
+                        "on-primary-container": "#c1beff",
+                        "primary-fixed": "#e3dfff",
+                        "surface-dim": "#dad6ff",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c7c4d7",
+                        "surface-tint": "#5148d7",
+                        "outline": "#777586",
+                        "on-secondary-container": "#663500",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary-fixed-variant": "#372abf",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f6f2ff",
+                        "surface-bright": "#fcf8ff",
+                        "on-primary-fixed": "#100069",
+                        "tertiary-fixed-dim": "#c6c7c5",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e3dfff",
+                        "inverse-surface": "#2d2a5b",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#4338ca",
+                        "on-tertiary-fixed-variant": "#454746",
+                        "on-tertiary-container": "#c4c5c3",
+                        "inverse-primary": "#c3c0ff",
+                        "secondary-container": "#fe932c",
+                        "tertiary-container": "#505251",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "on-surface": "#181445",
+                        "tertiary": "#393b3a",
+                        "tertiary-fixed": "#e2e3e1",
+                        "on-secondary-fixed": "#2f1500",
+                        "secondary": "#904d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "hairline": "1px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-main": ["Sora"],
+                        "data-value": ["JetBrains Mono"],
+                        "data-label": ["JetBrains Mono"],
+                        "headline-md-mobile": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "caption": ["Sora"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-main": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "data-value": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "data-label": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md-mobile": ["20px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(250, 250, 248, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid #E5E5E1;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+        }
+        
+        .magnetic-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        
+        .magnetic-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 150%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease-out;
+            pointer-events: none;
+            border-radius: 50%;
+        }
+        
+        .magnetic-button:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .magnetic-button:active {
+            transform: scale(0.98);
+        }
+
+        .input-minimal {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #E5E5E1;
+            transition: border-color 0.2s ease;
+        }
+        
+        .input-minimal:focus {
+            outline: none;
+            border-bottom: 1px solid #4338CA;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen w-screen overflow-hidden relative font-body-main text-body-main selection:bg-primary-container selection:text-on-primary-container">
+<!-- Shader Background -->
+<div class="absolute inset-0 z-0 pointer-events-none">
+
+</div>
+<!-- Main Content Canvas -->
+<div class="relative z-10 h-full w-full flex items-center justify-center p-margin-mobile md:p-margin-desktop">
+<!-- Auth Card -->
+<div class="glass-card rounded-xl p-8 md:p-12 w-full max-w-[440px] flex flex-col gap-8 shadow-sm">
+<!-- Header -->
+<div class="flex flex-col items-center text-center gap-2">
+<div class="w-12 h-12 rounded-lg bg-surface flex items-center justify-center mb-4 border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[32px]" data-icon="hub">hub</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-background tracking-tight">IntellectFlow</h1>
+<p class="font-data-label text-data-label text-on-surface-variant uppercase tracking-widest mt-2">Precision-Lab Analytics</p>
+</div>
+<!-- Form -->
+<form class="flex flex-col gap-6" onsubmit="event.preventDefault();">
+<div class="flex flex-col gap-1">
+<label class="font-data-label text-data-label text-on-surface-variant" for="email">Laboratory ID / Email</label>
+<input class="input-minimal font-data-value text-data-value py-2 text-on-surface placeholder:text-outline-variant" id="email" placeholder="researcher@institute.edu" required="" type="email"/>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between items-center">
+<label class="font-data-label text-data-label text-on-surface-variant" for="password">Access Token</label>
+<a class="font-data-value text-data-value text-primary hover:text-primary-container transition-colors text-xs" href="#">Reset</a>
+</div>
+<input class="input-minimal font-data-value text-data-value py-2 text-on-surface placeholder:text-outline-variant" id="password" placeholder="••••••••••••••••" required="" type="password"/>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-4 mt-4">
+<button class="magnetic-button bg-primary-container text-on-primary w-full py-3 rounded text-data-label font-data-label font-medium tracking-wide border border-transparent hover:bg-primary transition-colors flex items-center justify-center gap-2 group" type="submit">
+                        Initialize Session
+                        <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="magnetic-button bg-transparent text-primary w-full py-3 rounded text-data-label font-data-label font-medium tracking-wide border border-outline-variant hover:border-primary hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="fingerprint">fingerprint</span>
+                        Biometric Auth
+                    </button>
+</div>
+</form>
+<!-- Footer -->
+<div class="pt-6 border-t border-outline-variant flex justify-between items-center mt-auto">
+<p class="font-data-value text-caption text-on-surface-variant text-[10px] opacity-60">System v4.2.0-Alpha</p>
+<div class="flex gap-4">
+<a class="font-data-value text-caption text-on-surface-variant hover:text-primary transition-colors text-[10px]" href="#">Legal</a>
+<a class="font-data-value text-caption text-on-surface-variant hover:text-primary transition-colors text-[10px]" href="#">Help</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Corner Elements -->
+<div class="absolute top-margin-desktop left-margin-desktop font-data-value text-caption text-on-surface-variant opacity-40 hidden md:block">
+        SECURE NODE: AUTH-01
+    </div>
+<div class="absolute bottom-margin-desktop right-margin-desktop font-data-value text-caption text-on-surface-variant opacity-40 hidden md:block">
+        STATUS: STANDBY
+    </div>
+<script>
+        // Simple magnetic effect for buttons
+        document.querySelectorAll('.magnetic-button').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                btn.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0px, 0px)';
+            });
+        });
+    </script>
+</body></html>

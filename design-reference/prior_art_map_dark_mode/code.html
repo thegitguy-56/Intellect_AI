@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Prior-Art Map - IntellectFlow</title>
+<!-- Google Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Sora:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from design system -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#ffb77d",
+                      "on-background": "#f8fafc",
+                      "on-tertiary-fixed": "#1a1c1b",
+                      "surface-container": "#1e293b",
+                      "on-surface-variant": "#cbd5e1",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#334155",
+                      "surface": "#0f172a",
+                      "background": "#0f172a",
+                      "secondary-fixed": "#ffdcc3",
+                      "on-error-container": "#ffdad6",
+                      "inverse-on-surface": "#0f172a",
+                      "surface-container-high": "#1e293b",
+                      "error": "#ffb4ab",
+                      "primary": "#818cf8",
+                      "on-primary-container": "#e0e7ff",
+                      "primary-fixed": "#e3dfff",
+                      "surface-dim": "#0f172a",
+                      "on-error": "#690005",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#334155",
+                      "surface-tint": "#6366f1",
+                      "outline": "#64748b",
+                      "on-secondary-container": "#ffdcbe",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "on-primary-fixed-variant": "#e0e7ff",
+                      "surface-container-lowest": "#020617",
+                      "surface-container-low": "#0f172a",
+                      "surface-bright": "#1e293b",
+                      "on-primary-fixed": "#ffffff",
+                      "tertiary-fixed-dim": "#c6c7c5",
+                      "error-container": "#93000a",
+                      "surface-container-highest": "#334155",
+                      "inverse-surface": "#f1f5f9",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#4f46e5",
+                      "on-tertiary-fixed-variant": "#454746",
+                      "on-tertiary-container": "#e2e3e1",
+                      "inverse-primary": "#4338ca",
+                      "secondary-container": "#d97706",
+                      "tertiary-container": "#505251",
+                      "on-secondary-fixed-variant": "#6e3900",
+                      "on-surface": "#f8fafc",
+                      "tertiary": "#e2e3e1",
+                      "tertiary-fixed": "#e2e3e1",
+                      "on-secondary-fixed": "#2f1500",
+                      "secondary": "#fbbf24"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "base": "8px",
+                      "gutter": "24px",
+                      "hairline": "1px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Sora"],
+                      "body-main": ["Sora"],
+                      "data-value": ["JetBrains Mono"],
+                      "data-label": ["JetBrains Mono"],
+                      "headline-md-mobile": ["Sora"],
+                      "display-lg": ["Sora"],
+                      "caption": ["Sora"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "body-main": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "data-value": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "data-label": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "headline-md-mobile": ["20px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+              }
+      }
+          }
+        }
+    </script>
+<style>
+        .orbital-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .orbit-label {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #0f172a; /* surface */
+            padding: 0 4px;
+            color: rgba(255, 255, 255, 0.4); /* outline */
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            z-index: 1;
+        }
+
+        .patent-node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .patent-node:hover {
+            z-index: 20;
+            transform: translate(-50%, -50%) scale(1.05);
+            box-shadow: 0 0 16px rgba(129, 140, 248, 0.2); /* primary-container glow */
+        }
+
+        .connection-line {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            z-index: 5;
+            border-top-style: dashed;
+            border-top-color: rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        
+        .patent-node:hover ~ .connection-line.active-line {
+            border-top-color: #818cf8; /* primary */
+            opacity: 1;
+            z-index: 15;
+            box-shadow: 0 0 12px rgba(129, 140, 248, 0.3);
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .target-node-glow {
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.15), inset 0 0 10px rgba(129, 140, 248, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-main antialiased min-h-screen flex flex-col overflow-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant scale-95 duration-150 ease-in-out">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary">IntellectFlow</span>
+</div>
+<!-- Navigation hidden on mobile, full cluster on desktop -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-data-label text-data-label" href="#">Dashboard</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-data-label text-data-label" href="#">Prior-Art Map</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-data-label text-data-label" href="#">Citation Network</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-data-label text-data-label" href="#">Lab Notebook</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 rounded transition-colors" title="Refresh">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 rounded transition-colors" title="Export Notes">
+<span class="material-symbols-outlined">export_notes</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 rounded transition-colors" title="Share">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 pt-16">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col gap-base p-6 w-80 border-r border-outline-variant bg-surface fixed left-0 top-16 h-[calc(100vh-64px)] overflow-y-auto z-40">
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md text-primary">Lab Instance</h2>
+<p class="font-data-label text-data-label text-outline mt-1">v4.2.0-Alpha</p>
+</div>
+<button class="w-full bg-primary-container text-on-primary py-2 px-4 rounded hover:bg-surface-tint transition-colors font-data-label text-data-label mb-6">
+                New Analysis
+            </button>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 p-3 rounded text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-data-label text-data-label">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded text-primary font-bold bg-primary-container/10 border-r-4 border-primary transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-data-label text-data-label">Prior-Art Map</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-data-label text-data-label">Citation Network</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-data-label text-data-label">Lab Notebook</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded text-on-surface-variant hover:bg-surface-container-high transition-all active:scale-98 mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-data-label text-data-label">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-80 relative bg-background overflow-hidden" id="orbital-container">
+<!-- Filters & Controls Glass Panel -->
+<div class="absolute top-6 left-6 z-30 glass-panel p-4 rounded-lg flex flex-col gap-4 w-72 text-on-background">
+<div class="flex justify-between items-center border-b border-outline-variant/50 pb-2">
+<h3 class="font-headline-md text-headline-md text-sm">Similarity Parameters</h3>
+<span class="material-symbols-outlined text-outline text-sm">tune</span>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-data-label text-data-label text-xs text-outline">Semantic Threshold</label>
+<input class="w-full accent-primary" max="100" min="0" type="range" value="75"/>
+<div class="flex justify-between font-data-value text-data-value text-[10px] text-outline">
+<span>Low</span>
+<span>75%</span>
+<span>High</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-data-label text-data-label text-xs text-outline">Time Horizon</label>
+<select class="w-full bg-transparent border-b border-outline-variant text-on-background focus:border-primary focus:ring-0 font-data-value text-data-value text-xs py-1 [&amp;&gt;option]:bg-surface">
+<option>Last 5 Years</option>
+<option>Last 10 Years</option>
+<option selected="">All Time</option>
+</select>
+</div>
+</div>
+<!-- Legend -->
+<div class="absolute bottom-6 right-6 z-30 glass-panel p-4 rounded-lg flex flex-col gap-2">
+<h4 class="font-data-label text-data-label text-xs text-outline border-b border-outline-variant/50 pb-1 mb-1">Similarity Index</h4>
+<div class="flex items-center gap-2">
+<div class="w-4 h-0 border-t-2 border-primary border-solid"></div>
+<span class="font-data-value text-data-value text-[10px] text-on-background">&gt; 90% Match</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-0 border-t-[1px] border-outline border-dashed"></div>
+<span class="font-data-value text-data-value text-[10px] text-on-background">70% - 90%</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-4 h-0 border-t-[0.5px] border-outline-variant border-dotted"></div>
+<span class="font-data-value text-data-value text-[10px] text-on-background">&lt; 70%</span>
+</div>
+</div>
+<!-- Orbital Rings -->
+<div class="orbital-ring w-[300px] h-[300px]"><span class="orbit-label">90%</span></div>
+<div class="orbital-ring w-[500px] h-[500px]"><span class="orbit-label">70%</span></div>
+<div class="orbital-ring w-[700px] h-[700px]"><span class="orbit-label">50%</span></div>
+<!-- Nodes Container (populated by JS) -->
+<div class="absolute inset-0 w-full h-full pointer-events-none" id="nodes-layer">
+<!-- Nodes will be injected here to sit above lines -->
+</div>
+<!-- Lines Container (populated by JS) -->
+<div class="absolute inset-0 w-full h-full pointer-events-none z-0" id="lines-layer">
+<!-- Lines will be injected here -->
+</div>
+<!-- Central Node (Target Patent) -->
+<div class="patent-node target-node-glow absolute top-1/2 left-1/2 bg-surface-container-high border border-primary p-4 rounded-lg w-64 z-40" style="transform: translate(-50%, -50%);">
+<div class="flex justify-between items-start border-b border-outline-variant pb-2 mb-2">
+<span class="font-data-label text-data-label text-primary font-bold text-xs">TARGET PATENT</span>
+<span class="font-data-value text-data-value text-xs bg-primary-container/20 text-primary px-1 rounded">US-2023-0192A1</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-sm mb-2 line-clamp-2 text-on-background">Quantum State Processor Architecture</h3>
+<p class="font-body-main text-caption text-outline line-clamp-2 mb-3">A distributed architecture for maintaining coherence across multi-core quantum processor units using cryogenic interconnects.</p>
+<div class="flex gap-2">
+<span class="bg-surface-container text-on-surface-variant font-data-value text-data-value text-[10px] px-2 py-0.5 rounded">G06N 10/00</span>
+<span class="bg-surface-container text-on-surface-variant font-data-value text-data-value text-[10px] px-2 py-0.5 rounded">H01L 39/00</span>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="flex justify-between items-center px-margin-desktop py-base w-full mt-auto bg-surface-container-lowest border-t border-outline-variant z-50">
+<span class="font-data-label text-data-label text-on-surface">© 2024 IntellectFlow IP Systems. Precision-Lab Analytics.</span>
+<div class="flex gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-caption text-caption" href="#">Documentation</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-caption text-caption" href="#">API Reference</a>
+<a class="text-on-surface-variant hover:text-primary transition-opacity font-caption text-caption" href="#">Legal</a>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('orbital-container');
+            const nodesLayer = document.getElementById('nodes-layer');
+            const linesLayer = document.getElementById('lines-layer');
+            
+            // Prior Art Data
+            const priorArt = [
+                { id: 'US-9824B2', title: 'Cryogenic Interconnects for Superconducting Circuits', score: 94, distance: 120, angle: 45, class: 'H01L' },
+                { id: 'EP-3412A1', title: 'Multi-Core Quantum Computing Topology', score: 88, distance: 180, angle: 135, class: 'G06N' },
+                { id: 'JP-2020-55', title: 'Error Correction in Distributed Qubits', score: 82, distance: 220, angle: 220, class: 'G06F' },
+                { id: 'WO-2019-11', title: 'Thermal Management for Quantum Processors', score: 75, distance: 280, angle: 310, class: 'H05K' },
+                { id: 'US-8765B1', title: 'Superconducting Signal Routing', score: 68, distance: 340, angle: 15, class: 'H01B' },
+                { id: 'CN-1102A', title: 'Quantum Logic Gate Assembly', score: 62, distance: 380, angle: 180, class: 'G06N' },
+            ];
+
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            priorArt.forEach((node, index) => {
+                // Calculate position
+                const rad = node.angle * (Math.PI / 180);
+                // Adjust distance based on screen size somewhat, but keep relative spread
+                const actualDistance = node.distance * (window.innerWidth < 1024 ? 0.7 : 1);
+                
+                const x = actualDistance * Math.cos(rad);
+                const y = actualDistance * Math.sin(rad);
+
+                // Determine styling based on score
+                let borderWidth = '1px';
+                let borderStyle = 'dashed';
+                let borderColor = 'rgba(255, 255, 255, 0.1)';
+                let badgeColor = 'bg-surface-container text-on-surface-variant';
+
+                if (node.score > 90) {
+                    borderWidth = '2px';
+                    borderStyle = 'solid';
+                    borderColor = '#818cf8'; // primary
+                    badgeColor = 'bg-secondary-container/20 text-secondary'; // Using amber/secondary equivalent
+                } else if (node.score > 70) {
+                    borderWidth = '1.5px';
+                    borderColor = 'rgba(255, 255, 255, 0.3)';
+                }
+
+                // Create Node Element
+                const nodeEl = document.createElement('div');
+                nodeEl.className = 'patent-node bg-surface-container-high border pointer-events-auto p-3 rounded shadow-sm w-48';
+                nodeEl.style.left = `calc(50% + ${x}px)`;
+                nodeEl.style.top = `calc(50% + ${y}px)`;
+                nodeEl.style.borderColor = 'rgba(255, 255, 255, 0.1)'; // outline-variant
+
+                nodeEl.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-outline-variant/50 pb-1 mb-2">
+                        <span class="font-data-value text-data-value text-[10px] text-outline">${node.id}</span>
+                        <span class="font-data-value text-data-value text-[10px] font-bold ${badgeColor} px-1 rounded">${node.score}%</span>
+                    </div>
+                    <h4 class="font-headline-md text-headline-md text-xs mb-1 line-clamp-2 text-on-background">${node.title}</h4>
+                    <span class="font-data-value text-data-value text-[9px] text-outline">${node.class}</span>
+                `;
+
+                // Create Line Element
+                const lineEl = document.createElement('div');
+                lineEl.className = `connection-line line-${index}`;
+                lineEl.style.width = `${actualDistance}px`;
+                lineEl.style.borderTopWidth = borderWidth;
+                lineEl.style.borderTopStyle = borderStyle;
+                lineEl.style.borderTopColor = borderColor;
+                lineEl.style.transform = `rotate(${node.angle}deg)`;
+
+                // Hover Interactions
+                nodeEl.addEventListener('mouseenter', () => {
+                    lineEl.classList.add('active-line');
+                });
+                nodeEl.addEventListener('mouseleave', () => {
+                    lineEl.classList.remove('active-line');
+                });
+
+                linesLayer.appendChild(lineEl);
+                nodesLayer.appendChild(nodeEl);
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IntellectFlow - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#ffb77d",
+                        "on-background": "#181445",
+                        "on-tertiary-fixed": "#1a1c1b",
+                        "surface-container": "#efebff",
+                        "on-surface-variant": "#464554",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e3dfff",
+                        "surface": "#fcf8ff",
+                        "background": "#fcf8ff",
+                        "secondary-fixed": "#ffdcc3",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3eeff",
+                        "surface-container-high": "#e9e5ff",
+                        "error": "#ba1a1a",
+                        "primary": "#2a14b4",
+                        "on-primary-container": "#c1beff",
+                        "primary-fixed": "#e3dfff",
+                        "surface-dim": "#dad6ff",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c7c4d7",
+                        "surface-tint": "#5148d7",
+                        "outline": "#777586",
+                        "on-secondary-container": "#663500",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary-fixed-variant": "#372abf",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f6f2ff",
+                        "surface-bright": "#fcf8ff",
+                        "on-primary-fixed": "#100069",
+                        "tertiary-fixed-dim": "#c6c7c5",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e3dfff",
+                        "inverse-surface": "#2d2a5b",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#4338ca",
+                        "on-tertiary-fixed-variant": "#454746",
+                        "on-tertiary-container": "#c4c5c3",
+                        "inverse-primary": "#c3c0ff",
+                        "secondary-container": "#fe932c",
+                        "tertiary-container": "#505251",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "on-surface": "#181445",
+                        "tertiary": "#393b3a",
+                        "tertiary-fixed": "#e2e3e1",
+                        "on-secondary-fixed": "#2f1500",
+                        "secondary": "#904d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "hairline": "1px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-main": ["Sora"],
+                        "data-value": ["JetBrains Mono"],
+                        "data-label": ["JetBrains Mono"],
+                        "headline-md-mobile": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "caption": ["Sora"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-main": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "data-value": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "data-label": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md-mobile": ["20px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #fcf8ff;
+            color: #181445;
+            background-image: 
+                linear-gradient(to right, rgba(199, 196, 215, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(199, 196, 215, 0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+
+        .glass-panel {
+            background: rgba(252, 248, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid #c7c4d7;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Chart Animations */
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        .path-draw {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2s ease-out forwards;
+        }
+
+        /* Gauge Animation */
+        @keyframes fillGauge {
+            from { stroke-dasharray: 0, 100; }
+            to { stroke-dasharray: 75, 100; }
+        }
+        
+        .gauge-fill {
+            animation: fillGauge 1.5s ease-out forwards;
+        }
+        
+        /* Node glow */
+        .node-glow:hover {
+            box-shadow: 0 0 12px 0 rgba(67, 56, 202, 0.15);
+        }
+    </style>
+</head>
+<body class="font-body-main antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-gutter">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">IntellectFlow</span>
+<div class="hidden md:flex items-center bg-surface-container-lowest border border-outline-variant rounded px-3 py-1">
+<span class="material-symbols-outlined text-outline text-[20px] mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-main p-0 w-64 text-on-surface placeholder:text-outline" placeholder="Search patents, citations..." type="text"/>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-gutter">
+<button class="text-primary font-bold border-b-2 border-primary py-4 px-2 hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out">Dashboard</button>
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary py-4 px-2 hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out">Prior-Art Map</button>
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary py-4 px-2 hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out">Citation Network</button>
+</nav>
+<div class="flex items-center gap-base">
+<button aria-label="refresh" class="p-2 rounded hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out text-on-surface-variant">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+<button aria-label="export_notes" class="p-2 rounded hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out text-on-surface-variant">
+<span class="material-symbols-outlined">export_notes</span>
+</button>
+<button aria-label="share" class="p-2 rounded hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out text-on-surface-variant">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 pt-16">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col gap-base p-6 w-80 border-r border-outline-variant bg-surface dark:bg-surface-container-low fixed left-0 top-16 h-[calc(100vh-64px)] z-40">
+<div class="mb-gutter">
+<h2 class="font-headline-md text-headline-md text-primary">Lab Instance</h2>
+<p class="font-caption text-caption text-on-surface-variant">v4.2.0-Alpha</p>
+</div>
+<button class="w-full bg-primary-container text-on-primary py-2 px-4 rounded font-data-label text-data-label mb-4 hover:opacity-90 transition-opacity">New Analysis</button>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded text-primary dark:text-primary-fixed font-bold bg-primary-container/10 border-r-4 border-primary active:scale-98 transition-transform" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-data-label text-data-label">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-data-label text-data-label">Prior-Art Map</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-data-label text-data-label">Citation Network</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-data-label text-data-label">Lab Notebook</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98 mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-data-label text-data-label">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 md:ml-80 p-margin-mobile md:p-margin-desktop max-w-[1440px] mx-auto w-full">
+<header class="mb-gutter flex justify-between items-end">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-background">Analytics Overview</h1>
+<p class="font-body-main text-body-main text-on-surface-variant mt-2">Real-time metrics and structural analysis of current patent portfolio.</p>
+</div>
+<div class="flex gap-4">
+<div class="font-data-label text-data-label text-on-surface-variant bg-surface-container-lowest border border-outline-variant px-4 py-2 rounded flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        Last 30 Days
+                    </div>
+</div>
+</header>
+<div class="bento-grid">
+<!-- Novelty Trend (Large) -->
+<div class="glass-panel rounded-xl col-span-12 lg:col-span-8 p-6 flex flex-col min-h-[400px]">
+<div class="flex justify-between items-center mb-6 border-b border-outline-variant pb-4">
+<h3 class="font-headline-md text-headline-md text-on-background">Novelty Trend Analysis</h3>
+<span class="font-data-label text-data-label text-primary bg-primary-fixed px-2 py-1 rounded">Real-time</span>
+</div>
+<div class="flex-1 relative w-full h-full flex items-end">
+<!-- SVG Chart Simulation -->
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 1000 300">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#4338ca" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#4338ca" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid lines -->
+<line stroke="#e3dfff" stroke-dasharray="4" stroke-width="1" x1="0" x2="1000" y1="50" y2="50"></line>
+<line stroke="#e3dfff" stroke-dasharray="4" stroke-width="1" x1="0" x2="1000" y1="150" y2="150"></line>
+<line stroke="#e3dfff" stroke-dasharray="4" stroke-width="1" x1="0" x2="1000" y1="250" y2="250"></line>
+<!-- Data Path -->
+<path class="path-draw" d="M0,280 C100,250 200,100 300,150 C400,200 500,50 600,80 C700,110 800,20 900,60 L1000,40" fill="none" stroke="#4338ca" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></path>
+<!-- Area Fill -->
+<path d="M0,280 C100,250 200,100 300,150 C400,200 500,50 600,80 C700,110 800,20 900,60 L1000,40 L1000,300 L0,300 Z" fill="url(#chartGradient)"></path>
+<!-- Data Points -->
+<circle class="node-glow transition-all duration-300 cursor-pointer" cx="300" cy="150" fill="#ffffff" r="4" stroke="#4338ca" stroke-width="2"></circle>
+<circle class="node-glow transition-all duration-300 cursor-pointer" cx="600" cy="80" fill="#ffffff" r="4" stroke="#4338ca" stroke-width="2"></circle>
+<circle class="node-glow transition-all duration-300 cursor-pointer" cx="900" cy="60" fill="#ffffff" r="4" stroke="#4338ca" stroke-width="2"></circle>
+</svg>
+<!-- Axis Labels -->
+<div class="absolute bottom-0 left-0 w-full flex justify-between text-caption font-caption text-outline-variant -mb-6">
+<span>Q1</span>
+<span>Q2</span>
+<span>Q3</span>
+<span>Q4</span>
+</div>
+</div>
+</div>
+<!-- Risk/Compliance Gauge -->
+<div class="glass-panel rounded-xl col-span-12 md:col-span-6 lg:col-span-4 p-6 flex flex-col">
+<div class="border-b border-outline-variant pb-4 mb-6">
+<h3 class="font-headline-md text-headline-md text-on-background">Compliance Index</h3>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center relative">
+<svg class="w-full max-w-[250px] overflow-visible" viewbox="0 0 100 50">
+<!-- Background Arc -->
+<path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#e9e5ff" stroke-linecap="round" stroke-width="8"></path>
+<!-- Foreground Arc (Animated) -->
+<path class="gauge-fill" d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#4338ca" stroke-dasharray="0 100" stroke-linecap="round" stroke-width="8"></path>
+<!-- Indicator -->
+<circle cx="70" cy="20" fill="#181445" r="3"></circle>
+</svg>
+<div class="absolute bottom-0 text-center flex flex-col items-center">
+<span class="font-data-value text-display-lg text-primary" id="compliance-score">78</span>
+<span class="font-data-label text-data-label text-on-surface-variant">Low Risk Profile</span>
+</div>
+</div>
+</div>
+<!-- Stat Tile: Total Citations -->
+<div class="glass-panel rounded-xl col-span-12 sm:col-span-6 lg:col-span-3 p-6 flex flex-col justify-between node-glow cursor-default">
+<div class="flex justify-between items-start mb-4">
+<span class="font-data-label text-data-label text-on-surface-variant uppercase tracking-wider">Total Citations</span>
+<span class="material-symbols-outlined text-outline">account_tree</span>
+</div>
+<div>
+<div class="font-data-value text-[40px] font-bold text-on-background leading-none" id="total-citations">0</div>
+<div class="flex items-center gap-1 mt-2 text-[#904d00] font-data-label text-data-label bg-[#ffdcc3]/30 inline-flex px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[16px]">trending_up</span>
+                            +12.5%
+                        </div>
+</div>
+</div>
+<!-- Stat Tile: Novelty Average -->
+<div class="glass-panel rounded-xl col-span-12 sm:col-span-6 lg:col-span-3 p-6 flex flex-col justify-between node-glow cursor-default">
+<div class="flex justify-between items-start mb-4">
+<span class="font-data-label text-data-label text-on-surface-variant uppercase tracking-wider">Novelty Avg</span>
+<span class="material-symbols-outlined text-outline">lightbulb</span>
+</div>
+<div>
+<div class="font-data-value text-[40px] font-bold text-on-background leading-none flex items-baseline">
+<span id="novelty-avg">0</span><span class="text-[20px] text-outline ml-1">/100</span>
+</div>
+<div class="flex items-center gap-1 mt-2 text-primary font-data-label text-data-label">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                            Optimized Target
+                        </div>
+</div>
+</div>
+<!-- Secondary Data List / Recent Activity -->
+<div class="glass-panel rounded-xl col-span-12 lg:col-span-6 p-6">
+<div class="border-b border-outline-variant pb-4 mb-4 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-on-background">Recent Vector Matches</h3>
+<button class="font-data-label text-data-label text-primary hover:underline">View All</button>
+</div>
+<div class="flex flex-col gap-0">
+<!-- List Item -->
+<div class="flex items-center justify-between py-3 border-b border-outline-variant/50 hover:bg-surface-container/50 transition-colors px-2 rounded">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-secondary-container"></div>
+<div>
+<div class="font-data-value text-data-value text-on-background">US-2023-0192A1</div>
+<div class="font-caption text-caption text-on-surface-variant">Neural Network Architecture</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-data-value text-data-value text-secondary bg-[#ffdcc3]/20 px-2 py-0.5 rounded">94% Match</div>
+</div>
+</div>
+<!-- List Item -->
+<div class="flex items-center justify-between py-3 border-b border-outline-variant/50 hover:bg-surface-container/50 transition-colors px-2 rounded">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-primary-container"></div>
+<div>
+<div class="font-data-value text-data-value text-on-background">EP-4100234B1</div>
+<div class="font-caption text-caption text-on-surface-variant">Distributed Ledger Consensus</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-data-value text-data-value text-primary bg-primary-container/10 px-2 py-0.5 rounded">88% Match</div>
+</div>
+</div>
+<!-- List Item -->
+<div class="flex items-center justify-between py-3 hover:bg-surface-container/50 transition-colors px-2 rounded">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<div>
+<div class="font-data-value text-data-value text-on-background">WO-2024-00123A1</div>
+<div class="font-caption text-caption text-on-surface-variant">Quantum Error Correction</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-data-value text-data-value text-on-surface-variant bg-surface-container-high px-2 py-0.5 rounded">72% Match</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="flex justify-between items-center px-margin-desktop py-base w-full mt-auto bg-surface-container-lowest dark:bg-background border-t border-outline-variant z-50">
+<span class="font-data-label text-data-label text-on-surface">© 2024 IntellectFlow IP Systems. Precision-Lab Analytics.</span>
+<div class="flex gap-4">
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary hover:opacity-80 transition-opacity" href="#">Documentation</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary hover:opacity-80 transition-opacity" href="#">API Reference</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary hover:opacity-80 transition-opacity" href="#">Legal</a>
+</div>
+</footer>
+<script>
+        // Simple count-up animation for stats
+        function animateValue(id, start, end, duration) {
+            if (start === end) return;
+            var range = end - start;
+            var current = start;
+            var increment = end > start? 1 : -1;
+            var stepTime = Math.abs(Math.floor(duration / range));
+            var obj = document.getElementById(id);
+            var timer = setInterval(function() {
+                current += increment;
+                // Add commas for large numbers
+                obj.innerHTML = current.toLocaleString();
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        // Trigger animations when page loads
+        document.addEventListener("DOMContentLoaded", () => {
+            // Animate Total Citations to 14,208
+            animateValue("total-citations", 13800, 14208, 1500);
+            
+            // Animate Novelty Avg to 89
+            animateValue("novelty-avg", 0, 89, 1500);
+        });
+    </script>
+</body></html>

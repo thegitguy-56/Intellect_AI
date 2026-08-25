@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IntellectFlow - Patent Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Sora:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#ffb77d",
+                      "on-background": "#181445",
+                      "on-tertiary-fixed": "#1a1c1b",
+                      "surface-container": "#efebff",
+                      "on-surface-variant": "#464554",
+                      "on-secondary": "#ffffff",
+                      "surface-variant": "#e3dfff",
+                      "surface": "#fcf8ff",
+                      "background": "#fcf8ff",
+                      "secondary-fixed": "#ffdcc3",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f3eeff",
+                      "surface-container-high": "#e9e5ff",
+                      "error": "#ba1a1a",
+                      "primary": "#2a14b4",
+                      "on-primary-container": "#c1beff",
+                      "primary-fixed": "#e3dfff",
+                      "surface-dim": "#dad6ff",
+                      "on-error": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#c7c4d7",
+                      "surface-tint": "#5148d7",
+                      "outline": "#777586",
+                      "on-secondary-container": "#663500",
+                      "primary-fixed-dim": "#c3c0ff",
+                      "on-primary-fixed-variant": "#372abf",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-low": "#f6f2ff",
+                      "surface-bright": "#fcf8ff",
+                      "on-primary-fixed": "#100069",
+                      "tertiary-fixed-dim": "#c6c7c5",
+                      "error-container": "#ffdad6",
+                      "surface-container-highest": "#e3dfff",
+                      "inverse-surface": "#2d2a5b",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#4338ca",
+                      "on-tertiary-fixed-variant": "#454746",
+                      "on-tertiary-container": "#c4c5c3",
+                      "inverse-primary": "#c3c0ff",
+                      "secondary-container": "#fe932c",
+                      "tertiary-container": "#505251",
+                      "on-secondary-fixed-variant": "#6e3900",
+                      "on-surface": "#181445",
+                      "tertiary": "#393b3a",
+                      "tertiary-fixed": "#e2e3e1",
+                      "on-secondary-fixed": "#2f1500",
+                      "secondary": "#904d00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "margin-mobile": "16px",
+                      "base": "8px",
+                      "gutter": "24px",
+                      "hairline": "1px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Sora"
+                      ],
+                      "body-main": [
+                              "Sora"
+                      ],
+                      "data-value": [
+                              "JetBrains Mono"
+                      ],
+                      "data-label": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md-mobile": [
+                              "Sora"
+                      ],
+                      "display-lg": [
+                              "Sora"
+                      ],
+                      "caption": [
+                              "Sora"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-main": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-value": [
+                              "13px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-label": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "caption": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .glass-panel {
+            background: rgba(252, 248, 255, 0.8); /* surface color with opacity */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid theme('colors.outline-variant');
+        }
+        
+        .technical-border {
+            border: theme('spacing.hairline') solid theme('colors.outline-variant');
+        }
+        
+        .technical-grid {
+            background-image: 
+                linear-gradient(to right, theme('colors.outline-variant') 1px, transparent 1px),
+                linear-gradient(to bottom, theme('colors.outline-variant') 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: center;
+        }
+
+        /* Circular Progress */
+        .circular-chart {
+            display: block;
+            margin: 0 auto;
+            max-width: 80%;
+            max-height: 250px;
+        }
+        .circle-bg {
+            fill: none;
+            stroke: theme('colors.surface-container-high');
+            stroke-width: 3.8;
+        }
+        .circle {
+            fill: none;
+            stroke-width: 2.8;
+            stroke-linecap: round;
+            animation: progress 1s ease-out forwards;
+        }
+        @keyframes progress {
+            0% {
+                stroke-dasharray: 0 100;
+            }
+        }
+        .percentage {
+            fill: theme('colors.secondary-container'); /* Amber */
+            font-family: theme('fontFamily.data-value');
+            font-size: 0.5em;
+            text-anchor: middle;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-main text-body-main antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant flat no shadows">
+<div class="flex items-center gap-gutter">
+<div class="font-headline-md text-headline-md font-bold text-primary">
+                IntellectFlow
+            </div>
+<!-- Search placeholder if needed -->
+<div class="hidden md:flex items-center bg-surface-container-low border border-outline-variant rounded px-3 py-1">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none outline-none text-sm font-data-value text-data-value text-on-surface w-48 focus:ring-0" placeholder="Search patents..." type="text"/>
+</div>
+</div>
+<nav class="hidden md:flex gap-base">
+<button class="p-2 rounded hover:bg-surface-container-high/50 transition-colors text-on-surface-variant hover:text-primary scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+</button>
+<button class="p-2 rounded hover:bg-surface-container-high/50 transition-colors text-on-surface-variant hover:text-primary scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined" data-icon="export_notes">export_notes</span>
+</button>
+<button class="p-2 rounded hover:bg-surface-container-high/50 transition-colors text-on-surface-variant hover:text-primary scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</nav>
+</header>
+<div class="flex flex-1 pt-16">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col gap-base p-6 w-80 border-r border-outline-variant bg-surface fixed left-0 top-16 h-[calc(100vh-64px)] overflow-y-auto">
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md text-primary">Lab Instance</h2>
+<p class="font-data-value text-data-value text-on-surface-variant mt-1">v4.2.0-Alpha</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-2 px-4 rounded font-data-label text-data-label mb-6 hover:bg-primary-fixed-variant transition-colors">
+                New Analysis
+            </button>
+<nav class="flex flex-col gap-2 flex-1">
+<a class="flex items-center gap-3 p-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-data-label text-data-label">Dashboard</span>
+</a>
+<!-- Active State Example (if this was a prior art page, but it's details, so none perfectly match. Let's make Dashboard active for context or leave inactive) -->
+<a class="flex items-center gap-3 p-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="font-data-label text-data-label">Prior-Art Map</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="font-data-label text-data-label">Citation Network</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded text-primary font-bold bg-primary-container/10 border-r-4 border-primary transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-data-label text-data-label">Lab Notebook</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all active:scale-98 mt-auto" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-data-label text-data-label">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-80 relative bg-[#FAFAF8] min-h-full">
+<!-- Patent Header Hub -->
+<div class="px-margin-desktop py-8 border-b border-outline-variant bg-surface-container-lowest">
+<div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-2">
+<span class="font-data-label text-data-label text-primary bg-primary-container/10 px-2 py-1 rounded">US-1029384-B2</span>
+<span class="font-data-label text-data-label text-on-surface-variant border border-outline-variant px-2 py-1 rounded">Active</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-background max-w-4xl">
+                            Method and apparatus for quantum-state error correction in distributed neural processing
+                        </h1>
+<p class="font-body-main text-body-main text-on-surface-variant mt-4 max-w-2xl">
+                            Assignee: <span class="font-data-value text-data-value">NeuroQuant Systems LLC</span> | Filed: <span class="font-data-value text-data-value">2021-11-04</span>
+</p>
+</div>
+<!-- Novelty Gauge -->
+<div class="flex flex-col items-center bg-surface-container-low p-4 rounded technical-border min-w-[160px]">
+<svg class="circular-chart w-24 h-24" viewbox="0 0 36 36">
+<path class="circle-bg" d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831"></path>
+<path class="circle stroke-secondary-container" d="M18 2.0845
+                                a 15.9155 15.9155 0 0 1 0 31.831
+                                a 15.9155 15.9155 0 0 1 0 -31.831" stroke-dasharray="92, 100"></path>
+<text class="percentage text-secondary-container" x="18" y="20.35">92%</text>
+</svg>
+<span class="font-data-label text-data-label text-on-surface-variant mt-2">Novelty Score</span>
+</div>
+</div>
+<!-- Tabbed Sub-nav -->
+<div class="max-w-[1440px] mx-auto mt-8 flex overflow-x-auto hide-scrollbar border-b border-outline-variant">
+<button class="px-6 py-3 font-data-label text-data-label text-primary border-b-2 border-primary whitespace-nowrap">Overview</button>
+<button class="px-6 py-3 font-data-label text-data-label text-on-surface-variant hover:text-primary whitespace-nowrap">Extracted Data</button>
+<button class="px-6 py-3 font-data-label text-data-label text-on-surface-variant hover:text-primary whitespace-nowrap">Prior-Art</button>
+<button class="px-6 py-3 font-data-label text-data-label text-on-surface-variant hover:text-primary whitespace-nowrap">AI Assistant</button>
+<button class="px-6 py-3 font-data-label text-data-label text-on-surface-variant hover:text-primary whitespace-nowrap">Report</button>
+</div>
+</div>
+<!-- Overview Content -->
+<div class="px-margin-desktop py-8 max-w-[1440px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Left Column: Summary & Abstract (Editorial) -->
+<div class="xl:col-span-8 space-y-8">
+<section class="glass-panel p-8">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="summarize">summarize</span>
+                            Executive Summary
+                        </h3>
+<p class="font-body-main text-body-main text-on-surface-variant leading-relaxed">
+                            This patent describes a novel approach to resolving decoherence issues in distributed quantum neural networks. By implementing a decentralized error-correction protocol across nodes, the system achieves a 40% reduction in state-loss during complex computational tasks. The methodology heavily relies on continuous entangled-state monitoring without collapsing the wave function, presenting a significant leap over prior art which required periodic halting for classical parity checks.
+                        </p>
+</section>
+<section class="bg-surface-container-lowest p-8 technical-border">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="description">description</span>
+                            Abstract
+                        </h3>
+<p class="font-body-main text-body-main text-on-surface-variant leading-relaxed opacity-90">
+                            A system and method for mitigating quantum decoherence in distributed topologies. The apparatus comprises a plurality of quantum processing nodes interconnected via entangled quantum channels. A distributed error correction module operates autonomously within each node, utilizing non-demolition measurements to identify parity errors. Upon detection, local unitary transformations are applied to restore the logical qubit state without global system interruption, thereby facilitating uninterrupted neural network training operations in quantum environments.
+                        </p>
+</section>
+<!-- Decorative Visual Metaphor Image -->
+<div class="w-full h-64 technical-border relative overflow-hidden flex items-center justify-center bg-surface-container-low">
+<img class="object-cover w-full h-full opacity-60 mix-blend-multiply" data-alt="A highly detailed, technical visualization of a distributed quantum network. Glowing, faint blue and white nodes connected by thin, sharp hairline connectors on a stark, pristine white and light gray background. Subtle glass-like transparency effects and soft outer glows on the nodes. Minimalist, high-end laboratory aesthetic, very crisp and structured." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEZg4DBcfHKCbLUME0URcQk3lI1hksIqUajrtDkev1SQY_0dfP_JKVzanJCQtyduIugHXak-JLQEcgb0isS7LapuMVhmmyVz9ehKr63nocvKvXTYlwpRHpeWEt0RYRNDOeXp2yRQNtuijH5YDyRYsWvD5eCXKmjsQ-4kRo7OaRARD3RWbqG6bmK2t-CKOSvqNP84e3th7FN8pWXhAj_83IythVdbLSQli25keVWyrvqoRlqGe1L4Yn"/>
+<div class="absolute inset-0 border border-outline-variant/30 pointer-events-none mix-blend-overlay"></div>
+</div>
+</div>
+<!-- Right Column: Technical Stats (Lab Aesthetic) -->
+<div class="xl:col-span-4 space-y-6">
+<!-- Meta Data Bento -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 technical-border flex flex-col justify-between aspect-square">
+<span class="font-data-label text-data-label text-outline uppercase tracking-wider text-xs">Citations</span>
+<div class="mt-auto">
+<div class="font-data-value text-data-value text-primary text-2xl">142</div>
+<div class="font-caption text-caption text-on-surface-variant mt-1">Forward: 89 / Backward: 53</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 technical-border flex flex-col justify-between aspect-square">
+<span class="font-data-label text-data-label text-outline uppercase tracking-wider text-xs">Claims</span>
+<div class="mt-auto">
+<div class="font-data-value text-data-value text-on-surface text-2xl">24</div>
+<div class="font-caption text-caption text-on-surface-variant mt-1">Independent: 3</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 technical-border flex flex-col justify-between col-span-2">
+<span class="font-data-label text-data-label text-outline uppercase tracking-wider text-xs mb-2">Classification (IPC)</span>
+<div class="flex flex-wrap gap-2">
+<span class="font-data-value text-data-value bg-surface-variant px-2 py-1 rounded text-on-surface">G06N 10/00</span>
+<span class="font-data-value text-data-value bg-surface-variant px-2 py-1 rounded text-on-surface">H04L 9/08</span>
+<span class="font-data-value text-data-value bg-surface-variant px-2 py-1 rounded text-on-surface">G06F 11/10</span>
+</div>
+</div>
+</div>
+<!-- Extraction Status list -->
+<div class="bg-surface-container-lowest technical-border">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center">
+<h4 class="font-data-label text-data-label text-on-surface uppercase tracking-wider text-xs">Extraction Confidence</h4>
+<span class="material-symbols-outlined text-outline text-sm" data-icon="analytics">analytics</span>
+</div>
+<ul class="font-data-value text-data-value">
+<li class="flex justify-between items-center p-3 border-b border-outline-variant hover:bg-surface-container-low">
+<span class="text-on-surface-variant">Methodology</span>
+<span class="text-secondary-container">High (94%)</span>
+</li>
+<li class="flex justify-between items-center p-3 border-b border-outline-variant hover:bg-surface-container-low">
+<span class="text-on-surface-variant">Apparatus Specs</span>
+<span class="text-secondary-container">High (88%)</span>
+</li>
+<li class="flex justify-between items-center p-3 hover:bg-surface-container-low">
+<span class="text-on-surface-variant">Algorithm Logic</span>
+<span class="text-outline">Med (72%)</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

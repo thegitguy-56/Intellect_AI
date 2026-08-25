@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IntellectFlow - System States</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Sora:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#ffb77d",
+                    "on-background": "#181445",
+                    "on-tertiary-fixed": "#1a1c1b",
+                    "surface-container": "#efebff",
+                    "on-surface-variant": "#464554",
+                    "on-secondary": "#ffffff",
+                    "surface-variant": "#e3dfff",
+                    "surface": "#fcf8ff",
+                    "background": "#fcf8ff",
+                    "secondary-fixed": "#ffdcc3",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f3eeff",
+                    "surface-container-high": "#e9e5ff",
+                    "error": "#ba1a1a",
+                    "primary": "#2a14b4",
+                    "on-primary-container": "#c1beff",
+                    "primary-fixed": "#e3dfff",
+                    "surface-dim": "#dad6ff",
+                    "on-error": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#c7c4d7",
+                    "surface-tint": "#5148d7",
+                    "outline": "#777586",
+                    "on-secondary-container": "#663500",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "on-primary-fixed-variant": "#372abf",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f6f2ff",
+                    "surface-bright": "#fcf8ff",
+                    "on-primary-fixed": "#100069",
+                    "tertiary-fixed-dim": "#c6c7c5",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e3dfff",
+                    "inverse-surface": "#2d2a5b",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#4338ca",
+                    "on-tertiary-fixed-variant": "#454746",
+                    "on-tertiary-container": "#c4c5c3",
+                    "inverse-primary": "#c3c0ff",
+                    "secondary-container": "#fe932c",
+                    "tertiary-container": "#505251",
+                    "on-secondary-fixed-variant": "#6e3900",
+                    "on-surface": "#181445",
+                    "tertiary": "#393b3a",
+                    "tertiary-fixed": "#e2e3e1",
+                    "on-secondary-fixed": "#2f1500",
+                    "secondary": "#904d00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "48px",
+                    "margin-mobile": "16px",
+                    "base": "8px",
+                    "gutter": "24px",
+                    "hairline": "1px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Sora"],
+                    "body-main": ["Sora"],
+                    "data-value": ["JetBrains Mono"],
+                    "data-label": ["JetBrains Mono"],
+                    "headline-md-mobile": ["Sora"],
+                    "display-lg": ["Sora"],
+                    "caption": ["Sora"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "body-main": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "data-value": ["13px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "data-label": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md-mobile": ["20px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "caption": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Base specific overrides to maintain the 'lab' aesthetic */
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        /* Custom scrollbar for a technical feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.surface-container-low');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant');
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline');
+        }
+
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background: rgba(252, 248, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid theme('colors.surface-container-highest');
+        }
+        
+        /* Network Loading Animation specific */
+        .node-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(42, 20, 180, 0.2); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(42, 20, 180, 0); }
+            100% { transform: scale(0.8); box-shadow: 0 0 0 0 rgba(42, 20, 180, 0); }
+        }
+    </style>
+</head>
+<body class="font-body-main text-body-main antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/80 dark:bg-surface-container/80 backdrop-blur-xl border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-gutter">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed tracking-tight">IntellectFlow</span>
+</div>
+<div class="flex items-center gap-base">
+<button class="p-2 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="refresh">refresh</span>
+</button>
+<button class="p-2 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="export_notes">export_notes</span>
+</button>
+<button class="p-2 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-high/50 dark:hover:bg-surface-container-highest transition-colors scale-95 duration-150 ease-in-out flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" data-icon="share">share</span>
+</button>
+</div>
+</header>
+<!-- Main Layout Container -->
+<div class="flex flex-1 pt-16">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col gap-base p-6 w-80 fixed left-0 top-16 h-[calc(100vh-64px)] bg-surface dark:bg-surface-container-low border-r border-outline-variant dark:border-outline overflow-y-auto z-40">
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md text-primary">Lab Instance</h2>
+<p class="font-data-value text-data-value text-on-surface-variant mt-1">v4.2.0-Alpha</p>
+</div>
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-DEFAULT font-data-label text-data-label flex items-center justify-center gap-2 hover:bg-primary-container transition-colors mb-6 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Analysis
+            </button>
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-data-label text-data-label">Dashboard</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="font-data-label text-data-label">Prior-Art Map</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="font-data-label text-data-label">Citation Network</span>
+</a>
+</li>
+<!-- Active State -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-primary dark:text-primary-fixed font-bold bg-primary-container/10 border-r-4 border-primary transition-all active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book" data-weight="fill" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="font-data-label text-data-label">Lab Notebook</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high hover:text-primary dark:hover:text-primary-fixed-dim transition-all active:scale-98 mt-4" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-data-label text-data-label">Settings</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-80 p-margin-mobile md:p-margin-desktop flex flex-col gap-12 bg-background min-h-full">
+<div class="mb-4">
+<h1 class="font-display-lg text-display-lg text-on-background mb-2">System States Review</h1>
+<p class="font-body-main text-body-main text-on-surface-variant max-w-2xl">A preview of the technical-editorial design language applied to empty, loading, and error scenarios within the Lab Notebook context.</p>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<!-- Empty State (Library) -->
+<div class="glass-panel rounded-xl p-8 flex flex-col items-center justify-center min-h-[400px] text-center relative overflow-hidden">
+<!-- Background aesthetic pattern -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(theme('colors.primary') 1px, transparent 1px); background-size: 24px 24px;"></div>
+<div class="w-64 h-64 mb-6 relative z-10 opacity-60 mix-blend-multiply" data-alt="A delicate, highly technical minimalist line-art illustration depicting abstract data nodes and geometric patent structures floating in a stark white laboratory environment. The lines are thin and precise, resembling high-end architectural blueprints or complex molecular models. The overall aesthetic is extremely clean, light-mode, and subtly washed out to indicate an empty or waiting state." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCFfUU6NoAGTM5vwU4tZrGb8IwejO2ld50oeGZzoyBogtJH6vl2BRl3hfWhh9B1JGOdsr9KDzmaHHzzyjYEj4n95SDKkkfY2AfC06sg6udIU0dNNhj7Ke7X8fUiY7NAxOqGjyVKH9dyyvm42TxPWjHGX7eiI6etmkKgjECOn0HRAIdgu3kI2Rr4VrnMZQDVfWt58qM94_9l65PEohhYrcwQfQHgXtMbp9bBjWB9xIOVHic0dPvtVMJ2')"></div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2 relative z-10">Notebook is empty</h3>
+<p class="font-body-main text-body-main text-on-surface-variant max-w-sm mb-8 relative z-10">No patents or prior-art analyses have been added to this lab instance yet. Initialize your research context to begin.</p>
+<button class="bg-primary hover:bg-primary-container text-on-primary font-data-label text-data-label py-3 px-6 rounded-DEFAULT transition-colors flex items-center gap-2 relative z-10 shadow-[0_2px_10px_rgba(42,20,180,0.2)]">
+<span class="material-symbols-outlined text-[18px]">upload</span>
+                        Upload your first patent
+                    </button>
+</div>
+<div class="flex flex-col gap-8">
+<!-- Loading Skeleton (Network) -->
+<div class="glass-panel rounded-xl p-8 flex flex-col min-h-[250px] relative overflow-hidden">
+<div class="flex justify-between items-center border-b border-outline-variant/30 pb-4 mb-6">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded-full border border-outline-variant animate-pulse"></div>
+<div class="h-4 w-32 bg-surface-container-highest rounded animate-pulse"></div>
+</div>
+<div class="h-3 w-16 bg-surface-container-highest rounded animate-pulse"></div>
+</div>
+<div class="flex-1 relative flex items-center justify-center">
+<!-- Network visualization skeleton -->
+<div class="relative w-full max-w-[300px] h-[150px]">
+<!-- Connecting lines -->
+<div class="absolute top-1/2 left-1/4 w-1/2 h-[1px] bg-outline-variant/40 -translate-y-1/2 rotate-12"></div>
+<div class="absolute top-1/2 left-1/4 w-1/2 h-[1px] bg-outline-variant/40 -translate-y-1/2 -rotate-12"></div>
+<div class="absolute top-1/4 left-1/2 w-[1px] h-1/2 bg-outline-variant/40 -translate-x-1/2"></div>
+<!-- Nodes -->
+<div class="absolute top-1/2 left-1/4 w-8 h-8 rounded-full border border-primary/30 bg-surface -translate-x-1/2 -translate-y-1/2 flex items-center justify-center node-pulse z-10">
+<div class="w-2 h-2 rounded-full bg-primary/20"></div>
+</div>
+<div class="absolute top-[20%] left-[75%] w-6 h-6 rounded-full border border-outline-variant bg-surface -translate-x-1/2 -translate-y-1/2 flex items-center justify-center animate-pulse z-10"></div>
+<div class="absolute top-[80%] left-[75%] w-6 h-6 rounded-full border border-outline-variant bg-surface -translate-x-1/2 -translate-y-1/2 flex items-center justify-center animate-pulse z-10"></div>
+<div class="absolute top-1/4 left-1/2 w-4 h-4 rounded-full border border-outline-variant bg-surface -translate-x-1/2 -translate-y-1/2 flex items-center justify-center animate-pulse z-10"></div>
+</div>
+</div>
+<div class="text-center mt-4">
+<p class="font-data-value text-data-value text-outline uppercase tracking-widest animate-pulse">Computing Node Matrix...</p>
+</div>
+</div>
+<!-- Error State (Technical) -->
+<div class="border border-error/20 bg-error-container/10 rounded-xl p-8 flex flex-col relative overflow-hidden">
+<!-- Technical grid background subtle -->
+<div class="absolute top-0 right-0 w-32 h-32 opacity-10 pointer-events-none">
+<svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="8" id="errorGrid" patternunits="userSpaceOnUse" width="8">
+<path d="M 8 0 L 0 0 0 8" fill="none" stroke="currentColor" stroke-width="0.5"></path>
+</pattern>
+</defs>
+<rect class="text-error" fill="url(#errorGrid)" height="100%" width="100%"></rect>
+</svg>
+</div>
+<div class="flex items-start gap-4 relative z-10">
+<div class="w-10 h-10 rounded-DEFAULT bg-error/10 flex items-center justify-center shrink-0 border border-error/20">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Topology Rendering Failed</h3>
+<p class="font-body-main text-body-main text-on-surface-variant mb-4">The citation network encountered an irregular loop structure and aborted the layout phase to prevent memory overflow.</p>
+<div class="bg-surface border border-outline-variant rounded p-3 mb-4 inline-block shadow-inner">
+<span class="font-data-value text-data-value text-[#D97706] tracking-wider">ERR_CYCLE_DETECTED [0x8A4B]</span>
+</div>
+<div class="flex gap-3">
+<button class="font-data-label text-data-label text-error hover:bg-error/10 px-4 py-2 rounded transition-colors border border-transparent">
+                                        View Trace Logs
+                                    </button>
+<button class="font-data-label text-data-label text-on-surface hover:bg-surface-container-high px-4 py-2 rounded transition-colors border border-outline-variant">
+                                        Retry Render
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="flex justify-between items-center py-base w-full mt-auto border-t border-outline-variant/50 pt-6">
+<p class="font-data-label text-data-label text-on-surface">© 2024 IntellectFlow IP Systems. Precision-Lab Analytics.</p>
+<div class="flex gap-6">
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">Documentation</a>
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">API Reference</a>
+<a class="font-data-value text-data-value text-on-surface-variant hover:text-primary transition-opacity hover:opacity-80" href="#">Legal</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

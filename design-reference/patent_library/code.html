@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IntellectFlow - Patent Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#ffb77d",
+                        "on-background": "#181445",
+                        "on-tertiary-fixed": "#1a1c1b",
+                        "surface-container": "#efebff",
+                        "on-surface-variant": "#464554",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#e3dfff",
+                        "surface": "#fcf8ff",
+                        "background": "#fcf8ff",
+                        "secondary-fixed": "#ffdcc3",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3eeff",
+                        "surface-container-high": "#e9e5ff",
+                        "error": "#ba1a1a",
+                        "primary": "#2a14b4",
+                        "on-primary-container": "#c1beff",
+                        "primary-fixed": "#e3dfff",
+                        "surface-dim": "#dad6ff",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c7c4d7",
+                        "surface-tint": "#5148d7",
+                        "outline": "#777586",
+                        "on-secondary-container": "#663500",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary-fixed-variant": "#372abf",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f6f2ff",
+                        "surface-bright": "#fcf8ff",
+                        "on-primary-fixed": "#100069",
+                        "tertiary-fixed-dim": "#c6c7c5",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e3dfff",
+                        "inverse-surface": "#2d2a5b",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#4338ca",
+                        "on-tertiary-fixed-variant": "#454746",
+                        "on-tertiary-container": "#c4c5c3",
+                        "inverse-primary": "#c3c0ff",
+                        "secondary-container": "#fe932c",
+                        "tertiary-container": "#505251",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "on-surface": "#181445",
+                        "tertiary": "#393b3a",
+                        "tertiary-fixed": "#e2e3e1",
+                        "on-secondary-fixed": "#2f1500",
+                        "secondary": "#904d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "gutter": "24px",
+                        "hairline": "1px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "body-main": ["Sora"],
+                        "data-value": ["JetBrains Mono"],
+                        "data-label": ["JetBrains Mono"],
+                        "headline-md-mobile": ["Sora"],
+                        "display-lg": ["Sora"],
+                        "caption": ["Sora"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-main": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "data-value": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "data-label": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md-mobile": ["20px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(252, 248, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid #ffffff;
+        }
+        .patent-card {
+            transition: all 0.2s ease;
+        }
+        .patent-card:hover {
+            box-shadow: 0 0 12px rgba(67, 56, 202, 0.15);
+            border-color: #4338ca;
+        }
+        .connection-line {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .patent-card:hover .connection-line {
+            opacity: 1;
+        }
+        
+        /* Utility for radial progress */
+        .radial-progress {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: conic-gradient(#D97706 75%, #e9e5ff 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .radial-progress::before {
+            content: "";
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #fcf8ff;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-main antialiased min-h-screen flex flex-col pt-16 pl-80">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-surface/80 backdrop-blur-xl border-b border-outline-variant">
+<div class="flex items-center gap-gutter w-full max-w-[1440px] mx-auto">
+<div class="w-80 shrink-0">
+<span class="font-headline-md text-headline-md font-bold text-primary">IntellectFlow</span>
+</div>
+<div class="flex-grow flex items-center justify-between">
+<!-- Search Bar Placeholder -->
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-transparent border-b border-outline-variant focus:border-primary focus:outline-none font-data-label text-data-label placeholder-outline text-on-surface transition-colors" placeholder="Search patents, concepts..." type="text"/>
+</div>
+<div class="flex items-center gap-base">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 rounded transition-colors scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 rounded transition-colors scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined" data-icon="export_notes">export_notes</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high/50 rounded transition-colors scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-16 h-screen w-80 bg-surface flex flex-col gap-base p-6 border-r border-outline-variant z-40">
+<div class="mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface">Lab Instance</h2>
+<p class="font-data-value text-data-value text-outline">v4.2.0-Alpha</p>
+</div>
+<button class="w-full py-3 px-4 bg-primary text-on-primary font-data-label text-data-label rounded hover:opacity-90 transition-opacity mb-6">
+            New Analysis
+        </button>
+<div class="flex flex-col gap-2 flex-grow">
+<!-- Active Tab -->
+<a class="flex items-center gap-3 p-3 text-primary font-bold bg-primary-container/10 border-r-4 border-primary active:scale-98 transition-transform font-data-label text-data-label" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all font-data-label text-data-label active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                Prior-Art Map
+            </a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all font-data-label text-data-label active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+                Citation Network
+            </a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all font-data-label text-data-label active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Lab Notebook
+            </a>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all font-data-label text-data-label active:scale-98" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow p-margin-desktop w-full max-w-[1440px] mx-auto flex flex-col gap-gutter">
+<!-- Header & Filters -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-background mb-2">Patent Library</h1>
+<p class="font-body-main text-body-main text-on-surface-variant">Active monitoring dashboard for selected IP classifications.</p>
+</div>
+<div class="flex flex-wrap gap-3 items-center glass-panel p-2 rounded-lg">
+<span class="font-data-label text-data-label text-outline px-2">Filters:</span>
+<button class="px-4 py-1.5 border border-outline-variant rounded-full font-data-label text-data-label text-on-surface hover:border-primary transition-colors bg-surface">Active</button>
+<button class="px-4 py-1.5 border border-outline-variant rounded-full font-data-label text-data-label text-on-surface hover:border-primary transition-colors bg-surface">High Novelty</button>
+<button class="px-4 py-1.5 border border-outline-variant rounded-full font-data-label text-data-label text-on-surface hover:border-primary transition-colors bg-surface">Class G06N</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<!-- Asymmetric Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Featured Card (Large Span) -->
+<div class="md:col-span-8 patent-card bg-surface border border-outline-variant rounded-lg p-6 relative overflow-hidden group">
+<!-- Decorative Connection Lines (SVG) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none connection-line z-0" xmlns="http://www.w3.org/2000/svg">
+<path d="M 0,50 Q 200,50 400,200 T 800,100" fill="none" opacity="0.3" stroke="#4338ca" stroke-dasharray="4 4" stroke-width="0.5"></path>
+</svg>
+<div class="relative z-10 flex flex-col h-full">
+<div class="flex justify-between items-start mb-4 border-b border-outline-variant pb-4">
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-surface-container-high text-on-surface-variant font-data-value text-data-value rounded">Granted</span>
+<span class="px-2 py-1 bg-secondary-container/20 text-secondary font-data-value text-data-value rounded">Core Asset</span>
+</div>
+<span class="font-data-value text-data-value text-primary font-medium tracking-wider">US-1029348-B2</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-background mb-4">Method and System for Quantum-Resistant Cryptographic Key Distribution in Decentralized Networks</h3>
+<p class="font-body-main text-body-main text-on-surface-variant mb-8 max-w-2xl">
+                        A novel approach utilizing lattice-based cryptography for secure key exchange in low-latency decentralized nodes, bypassing traditional factorization vulnerabilities.
+                    </p>
+<div class="mt-auto flex justify-between items-end">
+<div class="flex gap-6">
+<div>
+<span class="block font-data-label text-data-label text-outline mb-1">Citations</span>
+<span class="font-data-value text-data-value text-on-surface">142 Forward / 12 Backward</span>
+</div>
+<div>
+<span class="block font-data-label text-data-label text-outline mb-1">Filing Date</span>
+<span class="font-data-value text-data-value text-on-surface">2021-10-14</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-data-label text-data-label text-outline">Novelty Score</span>
+<div class="radial-progress relative">
+<span class="absolute inset-0 flex items-center justify-center font-data-value text-data-value text-secondary z-10">92</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Standard Card -->
+<div class="md:col-span-4 patent-card bg-surface border border-outline-variant rounded-lg p-6 relative overflow-hidden group flex flex-col">
+<svg class="absolute inset-0 w-full h-full pointer-events-none connection-line z-0" xmlns="http://www.w3.org/2000/svg">
+<path d="M -50,150 Q 100,50 300,100" fill="none" opacity="0.3" stroke="#4338ca" stroke-width="0.5"></path>
+</svg>
+<div class="relative z-10 flex flex-col h-full">
+<div class="flex justify-between items-start mb-4 border-b border-outline-variant pb-4">
+<span class="px-2 py-1 bg-surface-container text-on-surface-variant font-data-value text-data-value rounded">Pending</span>
+<span class="font-data-value text-data-value text-primary font-medium tracking-wider">US-2023011-A1</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-background mb-4 text-xl">Dynamic Load Balancing for Neural Processing Units</h3>
+<div class="mt-auto pt-6 flex justify-between items-end border-t border-outline-variant/50">
+<div>
+<span class="block font-data-label text-data-label text-outline mb-1">Class</span>
+<span class="font-data-value text-data-value text-on-surface">G06N 3/04</span>
+</div>
+<div class="radial-progress relative" style="background: conic-gradient(#D97706 65%, #e9e5ff 0);">
+<span class="absolute inset-0 flex items-center justify-center font-data-value text-data-value text-secondary z-10">68</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Standard Card -->
+<div class="md:col-span-4 patent-card bg-surface border border-outline-variant rounded-lg p-6 relative overflow-hidden group flex flex-col">
+<div class="relative z-10 flex flex-col h-full">
+<div class="flex justify-between items-start mb-4 border-b border-outline-variant pb-4">
+<span class="px-2 py-1 bg-surface-container-high text-on-surface-variant font-data-value text-data-value rounded">Granted</span>
+<span class="font-data-value text-data-value text-primary font-medium tracking-wider">EP-3104922-B1</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-background mb-4 text-xl">Optimization of Photonic Waveguides for On-Chip Communication</h3>
+<div class="mt-auto pt-6 flex justify-between items-end border-t border-outline-variant/50">
+<div>
+<span class="block font-data-label text-data-label text-outline mb-1">Class</span>
+<span class="font-data-value text-data-value text-on-surface">G02B 6/12</span>
+</div>
+<div class="radial-progress relative" style="background: conic-gradient(#D97706 82%, #e9e5ff 0);">
+<span class="absolute inset-0 flex items-center justify-center font-data-value text-data-value text-secondary z-10">84</span>
+</div>
+</div>
+</div>
+</div>
+<!-- List-style compact cards (Span 8) -->
+<div class="md:col-span-8 flex flex-col gap-4">
+<h3 class="font-data-label text-data-label text-outline mb-2 uppercase tracking-widest">Recent Filings</h3>
+<!-- Compact Row 1 -->
+<div class="patent-card flex items-center justify-between p-4 bg-surface border border-outline-variant rounded hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4 w-2/3">
+<span class="font-data-value text-data-value text-primary w-32 shrink-0">WO-202410-A1</span>
+<span class="font-body-main text-body-main text-on-background truncate">Adaptive Algorithmic Trading Engines using Swarm Intelligence</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="font-data-value text-data-value text-outline">2023-11-02</span>
+<div class="w-8 h-8 rounded-full flex items-center justify-center bg-secondary-container/10 text-secondary font-data-value text-data-value border border-secondary/20">
+                            45
+                        </div>
+</div>
+</div>
+<!-- Compact Row 2 -->
+<div class="patent-card flex items-center justify-between p-4 bg-surface border border-outline-variant rounded hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4 w-2/3">
+<span class="font-data-value text-data-value text-primary w-32 shrink-0">US-202409-A1</span>
+<span class="font-body-main text-body-main text-on-background truncate">Synthetic Data Generation via Adversarial Diffusion Models</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="font-data-value text-data-value text-outline">2023-10-28</span>
+<div class="w-8 h-8 rounded-full flex items-center justify-center bg-secondary-container/10 text-secondary font-data-value text-data-value border border-secondary/20">
+                            72
+                        </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="flex justify-between items-center px-margin-desktop py-base w-full mt-auto bg-surface-container-lowest border-t border-outline-variant z-10 pl-80">
+<div class="font-data-label text-data-label text-on-surface">
+            © 2024 IntellectFlow IP Systems. Precision-Lab Analytics.
+        </div>
+<div class="flex gap-6">
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-opacity" href="#">Documentation</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-opacity" href="#">API Reference</a>
+<a class="font-caption text-caption text-on-surface-variant hover:text-primary transition-opacity" href="#">Legal</a>
+</div>
+</footer>
+</body></html>
