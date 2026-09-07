@@ -33,15 +33,24 @@ export async function POST(request: Request) {
     );
   }
 
-  const patent = await prisma.patent.create({
-    data: {
-      userId: session.user.id,
-      title,
-      originalFilename,
-      r2Key,
-      status: "uploaded",
-    },
-  });
+  let patent;
+  try {
+    patent = await prisma.patent.create({
+      data: {
+        userId: session.user.id,
+        title,
+        originalFilename,
+        r2Key,
+        status: "uploaded",
+      },
+    });
+  } catch (dbErr) {
+    console.error("[patents POST] prisma.patent.create failed:", dbErr);
+    return NextResponse.json(
+      { error: String(dbErr instanceof Error ? dbErr.message : dbErr) },
+      { status: 500 }
+    );
+  }
 
   // Kick off the analysis pipeline without holding up the upload response —
   // extraction + NER + embeddings + two Groq calls can take well past a

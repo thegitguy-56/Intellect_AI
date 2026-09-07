@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, after } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { callBackend } from "@/lib/backend";
@@ -17,12 +17,17 @@ export async function POST(_request: Request, { params }: { params: Promise<{ id
 
   await prisma.patent.update({ where: { id }, data: { status: "processing" } });
 
-  try {
-    await callBackend("/analyze", { method: "POST", body: JSON.stringify({ patent_id: id }) });
-  } catch {
-    await prisma.patent.update({ where: { id }, data: { status: "error" } });
-    return NextResponse.json({ error: "Retry failed" }, { status: 502 });
-  }
+  // Fire the re-analysis out-of-band so the HTTP response isn't held open for
+  // the full pipeline duration (extraction + NER + embeddings + two Groq calls
+  // can easily exceed any proxy or serverless timeout). Same pattern as the
+  // original upload POST — after() resolves after the response is flushed.
+  after(async () => {
+    try {
+      await callBackend("/analyze", { method: "POST", body: JSON.stringify({ patent_id: id }) });
+    } catch {
+      await prisma.patent.update({ where: { id }, data: { status: "error" } });
+    }
+  });
 
   return NextResponse.json({ status: "ok" });
 }

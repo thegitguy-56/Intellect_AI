@@ -17,7 +17,14 @@ Usage (from backend/, with the venv active and .env populated):
 import asyncio
 import json
 import sys
+import platform
 from pathlib import Path
+
+# Windows ProactorEventLoop has a known issue timing out on IPv6 SSL
+# connections — asyncpg connects to Neon which resolves to IPv6, causing
+# CancelledError → TimeoutError. SelectorEventLoop handles it correctly.
+if platform.system() == "Windows":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 

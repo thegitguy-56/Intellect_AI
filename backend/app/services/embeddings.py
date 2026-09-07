@@ -30,5 +30,7 @@ def embed_text(text: str) -> list[float]:
 
 
 def embed_batch(texts: list[str]) -> list[list[float]]:
+    if not texts:
+        return []
     matrix = _vectorizer.transform([t[:MAX_CHARS] for t in texts])
     return matrix.toarray().astype(np.float32).tolist()

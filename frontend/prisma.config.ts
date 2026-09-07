@@ -8,9 +8,10 @@ export default defineConfig({
   migrations: {
     path: "prisma/migrations",
   },
-  // Migrations use the direct (non-pooled) connection; the app's PrismaClient
-  // uses the pooled DATABASE_URL via the pg driver adapter (see src/lib/prisma.ts).
+  // Locally the Neon direct endpoint may be suspended while the pooler stays
+  // live — use DATABASE_URL (pooled) for migrations in dev. In production
+  // (Vercel) set DIRECT_URL to the non-pooled connection string.
   datasource: {
-    url: process.env["DIRECT_URL"] ?? process.env["DATABASE_URL"],
+    url: process.env["DATABASE_URL"],
   },
 });

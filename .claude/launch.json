@@ -3,14 +3,14 @@
   "configurations": [
     {
       "name": "frontend-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "frontend"],
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/d", "/c", "cd /d frontend && npm run dev"],
       "port": 3000
     },
     {
       "name": "backend-dev",
-      "runtimeExecutable": "backend/venv/Scripts/python.exe",
-      "runtimeArgs": ["-m", "uvicorn", "app.main:app", "--reload", "--port", "8000", "--app-dir", "backend"],
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/d", "/c", "cd /d backend && venv\\Scripts\\python.exe -m uvicorn app.main:app --reload --port 8000"],
       "port": 8000
     }
   ]
