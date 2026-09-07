@@ -29,4 +29,4 @@ services:
       - key: INTERNAL_API_KEY
         sync: false
       - key: CORS_ORIGINS
-        value: '["https://your-app.vercel.app"]'
+        value: '["https://intellect-ai-psi.vercel.app"]'
