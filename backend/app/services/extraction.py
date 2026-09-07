@@ -38,8 +38,23 @@ def _ocr_pdf(file_bytes: bytes) -> str:
     # Free-tier tradeoff: OCR on Render's free CPU tier is slow (seconds per
     # page) and has no GPU — acceptable for occasional scanned uploads in a
     # course project, not for high-volume production use.
-    images = convert_from_bytes(file_bytes)
-    return "\n".join(pytesseract.image_to_string(image) for image in images)
+    #
+    # Render's free plan caps memory at 512MB. convert_from_bytes() renders
+    # every page to an in-memory image up front — for a multi-page patent
+    # that's tens of MB per page held simultaneously, on top of spaCy/
+    # scikit-learn/pymupdf already loaded, and OOM-kills the instance mid
+    # request. Converting and OCR'ing one page at a time keeps peak memory
+    # to roughly a single page's image instead of the whole document.
+    doc = fitz.open(stream=file_bytes, filetype="pdf")
+    page_count = doc.page_count
+    doc.close()
+
+    pages_text = []
+    for page_number in range(1, page_count + 1):
+        images = convert_from_bytes(file_bytes, first_page=page_number, last_page=page_number)
+        for image in images:
+            pages_text.append(pytesseract.image_to_string(image))
+    return "\n".join(pages_text)
 
 
 def _extract_docx(file_bytes: bytes) -> str:
